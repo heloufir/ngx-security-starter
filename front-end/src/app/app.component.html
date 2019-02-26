@@ -1,12 +1,13 @@
 <div class="container-scroller">
-  <app-navbar></app-navbar>
-  <div class="container-fluid page-body-wrapper">
-    <app-sidebar></app-sidebar>
-    <div class="main-panel">
-      <div class="content-wrapper">
-        <router-outlet></router-outlet>
-      </div>
-      <app-footer></app-footer>
+    <app-navbar *ngIf="settings.navbar"></app-navbar>
+    <div class="container-fluid page-body-wrapper" [class.full-screen]="!settings.navbar">
+        <app-sidebar *ngIf="settings.sidebar"></app-sidebar>
+        <div class="main-panel" [class.full-screen]="!settings.sidebar">
+            <div class="content-wrapper">
+                <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+                <router-outlet></router-outlet>
+            </div>
+            <app-footer *ngIf="settings.footer"></app-footer>
+        </div>
     </div>
-  </div>
 </div>

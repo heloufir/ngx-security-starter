@@ -8,7 +8,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './main/main.module#MainModule'
+    loadChildren: './main/main.module#MainModule',
+    data: { preload: true }
   }
 ];
 

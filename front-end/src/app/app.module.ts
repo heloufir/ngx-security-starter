@@ -9,6 +9,10 @@ import { NavbarComponent } from './main/navbar/navbar.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { FooterComponent } from './main/footer/footer.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -18,9 +22,12 @@ import { FooterComponent } from './main/footer/footer.component';
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

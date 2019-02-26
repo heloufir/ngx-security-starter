@@ -1,9 +1,31 @@
 @import '../styles';
-
 :host {
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden;
-  font-size: 1rem;
-  font-family: $type-1;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    font-size: 1rem;
+    font-family: $type-1;
+}
+
+.container-fluid {
+    &.full-screen {
+        padding-top: 0;
+        height: 100vh;
+    }
+}
+
+.main-panel {
+    &.full-screen {
+        width: 100%;
+    }
+}
+
+.content-wrapper {
+    position: relative;
+    &>mat-progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
 }
