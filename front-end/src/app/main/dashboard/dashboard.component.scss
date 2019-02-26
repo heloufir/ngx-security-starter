@@ -1,6 +1,6 @@
 /* Dashboard */
 
-@import '../../styles';
+@import '../../../styles';
 .card-statistics {
   .highlight-icon {
     height: 53px;
@@ -75,7 +75,7 @@
   .card-body {
     background: $white;
     &:first-child {
-      background: url("../../assets/images/samples/weather.svg") no-repeat center;
+      background: url(../../../assets/images/samples/weather.svg) no-repeat center;
       background-size: cover;
     }
   }
