@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
-    "@angular/cli": "~6.2.5",
+    "@angular/cli": "~7.3.3",
     "@angular/compiler-cli": "^7.2.6",
     "@angular/language-service": "^7.2.6",
     "@types/jasmine": "~2.8.8",
@@ -51,6 +51,6 @@
     "sass-loader": "^7.1.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~2.9.2"
+    "typescript": "~3.1.1"
   }
 }
