@@ -2,13 +2,15 @@
 
 namespace App;
 
+use Heloufir\SecurityStarter\Core\UserProfiles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens, UserProfiles;
 
     /**
      * The attributes that are mass assignable.
