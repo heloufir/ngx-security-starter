@@ -1,0 +1,15 @@
+#login {
+    .input-group {
+        .input-group-prepend {
+            .input-group-text {
+                i {
+                    font-size: 25px;
+                }
+            }
+        }
+        input {
+            height: 60px;
+            line-height: 60px;
+        }
+    }
+}
