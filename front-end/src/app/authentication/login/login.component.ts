@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.loading = false;
           // Redirect to home
           return this._router.navigate([constants.home_url]);
-        }, (err: any) => {
+        }, () => {
           error('Authentication error!', 'Username or password entered is incorrect', this._toastr);
           this.loading = false;
         }
