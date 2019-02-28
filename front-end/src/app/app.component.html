@@ -1,13 +1,43 @@
+<!-- Main container -->
 <div class="container-scroller">
+
+    <!-- Main application navigation bar -->
     <app-navbar *ngIf="settings.navbar"></app-navbar>
+    <!-- ./Main application navigation bar -->
+
+    <!-- Content container -->
     <div class="container-fluid page-body-wrapper" [class.full-screen]="!settings.navbar">
+
+        <!-- Main application sidebar -->
         <app-sidebar *ngIf="settings.sidebar"></app-sidebar>
+        <!-- ./Main application sidebar -->
+
+        <!-- Main panel -->
         <div class="main-panel" [class.full-screen]="!settings.sidebar">
+
+            <!-- Page content -->
             <div class="content-wrapper">
+
+                <!-- Router event loading indicator -->
                 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+                <!-- ./Router event loading indicator -->
+
+                <!-- Router outlet -->
                 <router-outlet></router-outlet>
+                <!-- ./Router outlet -->
+                
             </div>
+            <!-- ./Page content -->
+
+            <!-- Application footer -->
             <app-footer *ngIf="settings.footer"></app-footer>
+            <!-- ./Application footer -->
+            
         </div>
+        <!-- ./Main panel -->
+
     </div>
+    <!-- ./Content container -->
+
 </div>
+<!-- ./Main container -->

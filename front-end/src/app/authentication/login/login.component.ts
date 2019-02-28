@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ConfigService } from 'src/app/core/services/config.service';
+import { ConfigService } from '@app/core/services/config.service';
 
 @Component({
   selector: 'app-login',

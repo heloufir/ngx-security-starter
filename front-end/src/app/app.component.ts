@@ -8,6 +8,11 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, Naviga
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+/**
+ * The main application component
+ * 
+ * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+ */
 export class AppComponent implements OnInit, OnDestroy {
 
   /**
@@ -25,19 +30,30 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   loading: boolean;
 
+  /**
+   * Component constructor
+   * 
+   * @param config The configuration service
+   * @param router The router object
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
   constructor(
     public config: ConfigService,
     private router: Router
   ) {
+    // Subscribe to all the settings change events
     this.onSettingsChanged = this.config.onSettingsChanged
       .subscribe((newSettings: ConfigObject) => this.settings = newSettings);
-
+    // Add a subscriber to the router events to detect the loading indicator
     this.router.events.subscribe((event: Event) => {
       switch (true) {
+        // When the route start loading
         case event instanceof NavigationStart: {
           this.loading = true;
           break;
         }
+        // When the route stop loading ([end], [cancel] or [error] event)
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
@@ -51,8 +67,18 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Component OnInit phase
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
   ngOnInit(): void { }
 
+  /**
+   * Component OnDestroy phase
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
   ngOnDestroy(): void {
     this.onSettingsChanged.unsubscribe();
   }
