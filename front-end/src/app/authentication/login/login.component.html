@@ -7,17 +7,34 @@
           <div class="info-form">
             <br><br>
             <form [formGroup]="form" class="justify-content-center" (submit)="login()">
-              <div class="input-group mb-2">
+              <div class="input-group mb-2" [class.has-error]="form.get('username').dirty && form.get('username').invalid">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
                 <input type="email" formControlName="username" class="form-control" placeholder="Email address">
               </div>
-              <div class="input-group mb-2">
+              <div class="row" *ngIf="form.get('username').dirty && form.get('username').invalid">
+                <div class="col-12">
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.controls['username'].hasError('required')">
+                    The email address is required
+                  </div>
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.get('username').hasError('email')">
+                    Please enter a valid email address
+                  </div>
+                </div>
+              </div>
+              <div class="input-group mb-2" [class.has-error]="form.get('password').dirty && form.get('password').invalid">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-unlock-alt"></i></div>
                 </div>
                 <input type="password" formControlName="password" class="form-control" placeholder="Password">
+              </div>
+              <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
+                <div class="col-12">
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('password').dirty && form.get('password').hasError('required')">
+                    The password is required
+                  </div>
+                </div>
               </div>
               <div class="row">
                 <div class="col-12">

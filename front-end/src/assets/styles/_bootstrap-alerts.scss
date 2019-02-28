@@ -1,23 +1,46 @@
 /* Bootstrap Alerts */
 
 .alert {
-  font-size: $default-font-size;
-  i {
-    font-size: 1.25rem;
-    margin-right: 1.25rem;
-    vertical-align: middle;
-    line-height: .5;
-  }
+    font-size: $default-font-size;
+    i {
+        font-size: 1.25rem;
+        margin-right: 1.25rem;
+        vertical-align: middle;
+        line-height: .5;
+    }
 }
 
-@each $color, $value in $theme-colors {
-  .alert-#{$color} {
-    @include alert-variant(rgba(theme-color($color), .2), theme-color-level($color, 1), theme-color-level($color, 3));
-  }
+@each $color,
+$value in $theme-colors {
+    .alert-#{$color} {
+        @include alert-variant(rgba(theme-color($color), .2), theme-color-level($color, 1), theme-color-level($color, 3));
+    }
 }
 
-@each $color, $value in $theme-colors {
-  .alert-fill-#{$color} {
-    @include alert-variant(theme-color($color), theme-color($color), color(white));
-  }
+@each $color,
+$value in $theme-colors {
+    .alert-fill-#{$color} {
+        @include alert-variant(theme-color($color), theme-color($color), color(white));
+    }
+}
+
+.alert-transparent-left {
+    background: transparent;
+    text-align: left;
+    border: none;
+    padding: 0;
+}
+
+.alert-transparent-center {
+    background: transparent;
+    text-align: center;
+    border: none;
+    padding: 0;
+}
+
+.alert-transparent-right {
+    background: transparent;
+    text-align: right;
+    border: none;
+    padding: 0;
 }
