@@ -1,7 +1,12 @@
+// Angular components
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ConfigService, ConfigObject } from './core/services/config.service';
-import { Subscription } from 'rxjs/Subscription';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+
+// Application layout configuration service
+import { ConfigService, ConfigObject } from './core/services/config.service';
+
+// Rxjs components
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-root',

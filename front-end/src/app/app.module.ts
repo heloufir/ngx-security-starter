@@ -21,6 +21,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { InterceptorService } from '@services/security/guards/interceptor.service';
 
+// Toastr module
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     // Main navigation bar component
@@ -33,10 +36,10 @@ import { InterceptorService } from '@services/security/guards/interceptor.servic
     AppComponent
   ],
   imports: [
-    // Browser animations module
-    BrowserAnimationsModule,
     // Browser module
     BrowserModule,
+    // Browser animations module
+    BrowserAnimationsModule,
     // Application routing module (containing the forRoot() routes)
     AppRoutingModule,
     // Inject the bootstrap
@@ -45,7 +48,12 @@ import { InterceptorService } from '@services/security/guards/interceptor.servic
     HttpModule,
     HttpClientModule,
     // Material progress bar module
-    MatProgressBarModule
+    MatProgressBarModule,
+    // Toastr module
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [
     // The HttpClient requests interceptor

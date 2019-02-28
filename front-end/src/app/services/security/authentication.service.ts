@@ -6,6 +6,7 @@ import { environment } from '@env/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { constants } from '@env/constants';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable({
   providedIn: 'root'
@@ -65,10 +66,7 @@ export class AuthenticationService {
     const options = new RequestOptions({ headers: headers });
     return this._http.post(environment.auth_url + 'token', params.toString(), options)
       .map((res: any) => res.json())
-      .catch(err => {
-        this.logout();
-        return Observable.throw(err);
-      });
+      .catch(err => ErrorObservable.create(new Error(err)));
   }
 
   /**
