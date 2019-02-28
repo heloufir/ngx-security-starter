@@ -1,20 +1,14 @@
+// Angular modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
-// 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-// Routes guards
-import { AuthGuard } from '@services/security/guards/auth.guard';
-
+// Module routes
 const routes: Routes = [
-  // Dashboard component
+  // Dashboard module
   { 
     path: 'dashboard', 
-    component: DashboardComponent,
-    canActivate: [ AuthGuard ]
+    loadChildren: './dashboard/dashboard.module#DashboardModule'
   },
   // Default redirection to dashboard if route is unknown
   { 
@@ -24,15 +18,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    // Dashboard component
-    DashboardComponent
-  ],
+  declarations: [],
   imports: [
     // Angular modules
     CommonModule,
-    // Bootstrap module
-    NgbModule,
     // Router module
     RouterModule.forChild(routes)
   ]
