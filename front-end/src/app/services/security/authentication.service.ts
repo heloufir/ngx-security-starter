@@ -1,12 +1,17 @@
+// Angular modules
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { Headers, RequestOptions, Http } from '@angular/http';
-import { environment } from '@env/environment';
+
+// Observable modules
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { constants } from '@env/constants';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+
+// Environment and application constants
+import { environment } from '@env/environment';
+import { constants } from '@env/constants';
 
 @Injectable({
   providedIn: 'root'

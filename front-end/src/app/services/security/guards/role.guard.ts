@@ -1,8 +1,13 @@
+// Angular modules
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivate } from '@angular/router/src/interfaces';
 import { ActivatedRouteSnapshot } from '@angular/router/src/router_state';
+
+// JWT Helper service
 import { JwtHelperService } from '../jwt-helper.service';
+
+// Application authentication service
 import { AuthenticationService } from '../authentication.service';
 
 @Injectable({

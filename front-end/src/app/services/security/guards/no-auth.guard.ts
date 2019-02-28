@@ -1,5 +1,8 @@
+// Angular modules
 import { Injectable } from '@angular/core';
 import { RouterStateSnapshot, ActivatedRouteSnapshot, Router, CanActivate } from '@angular/router';
+
+// Application constants
 import { constants } from 'environments/constants';
 
 @Injectable({

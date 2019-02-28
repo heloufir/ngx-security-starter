@@ -1,13 +1,22 @@
+// Angular modules
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
+
+// Angular Http client modules
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+
+// Observable modules
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import { Observable } from 'rxjs/Observable';
-import { AuthenticationService } from '../authentication.service';
-import { constants } from 'environments/constants';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+
+// Application authentication serice
+import { AuthenticationService } from '../authentication.service';
+
+// Application constants
+import { constants } from 'environments/constants';
 
 @Injectable({
   providedIn: 'root'

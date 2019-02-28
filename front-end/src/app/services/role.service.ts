@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { CrudService } from '@services/common/crud.service';
 
 // Application models
-import { User } from '@models/user.model';
+import { Role } from '@models/role.model';
 
 // Angular Http client
 import { HttpClient } from '@angular/common/http';
@@ -14,11 +14,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 /**
- * The user model services
+ * The role model services
  *
  * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
  */
-export class UserService extends CrudService<User> {
+export class RoleService extends CrudService<Role> {
 
   /**
    * Service constructor
@@ -31,6 +31,6 @@ export class UserService extends CrudService<User> {
     _http: HttpClient
   ) {
     super(_http);
-    this.setUrl('users');
+    this.setUrl('roles');
   }
 }
