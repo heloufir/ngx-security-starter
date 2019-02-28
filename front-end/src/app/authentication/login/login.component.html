@@ -1,18 +1,35 @@
+<!-- Login section -->
 <section id="login">
+
+  <!-- Login caption -->
   <div id="login-caption">
+
+    <!-- Login container -->
     <div id="container" class="container">
+      
       <div class="row">
+
         <div class="col-sm-6 offset-sm-3 text-center">
+
           <h1 class="display-3">Login to your account</h1>
+
           <div class="info-form">
+
             <br><br>
+
+            <!-- Login form -->
             <form [formGroup]="form" class="justify-content-center" (submit)="login()">
+
+              <!-- Username field -->
               <div class="input-group mb-2" [class.has-error]="form.get('username').dirty && form.get('username').invalid">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
                 <input type="email" formControlName="username" class="form-control" placeholder="Email address">
               </div>
+              <!-- ./Username field -->
+              
+              <!-- Username field validations container -->
               <div class="row" *ngIf="form.get('username').dirty && form.get('username').invalid">
                 <div class="col-12">
                   <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.controls['username'].hasError('required')">
@@ -23,12 +40,18 @@
                   </div>
                 </div>
               </div>
+              <!-- ./Username field validations container -->
+
+              <!-- Password field -->
               <div class="input-group mb-2" [class.has-error]="form.get('password').dirty && form.get('password').invalid">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-unlock-alt"></i></div>
                 </div>
                 <input type="password" formControlName="password" class="form-control" placeholder="Password">
               </div>
+              <!-- ./Password field -->
+              
+              <!-- Password field validations container -->
               <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
                 <div class="col-12">
                   <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('password').dirty && form.get('password').hasError('required')">
@@ -36,19 +59,40 @@
                   </div>
                 </div>
               </div>
+              <!-- ./Password field validations container -->
+
+              <!-- Forgot password link -->
               <div class="row">
                 <div class="col-12">
                   <a href="#" class="btn btn-secondary-outline btn-sm text-left float-left" role="button">Forgot your password?</a>
                 </div>
               </div>
+              <!-- ./Forgot password link -->
+
+              <!-- Login in progress indicator -->
               <mat-spinner [diameter]="75" *ngIf="loading"></mat-spinner>
+              <!-- ./Login in progress indicator -->
+
+              <!-- Form submit button -->
               <button type="submit" class="btn btn-secondary-outline btn-lgb login-btn" [disabled]="form.invalid || loading">
                 <img src="assets/images/icons/login.png" alt="Login" />
               </button>
+              <!-- ./Form submit button -->
+              
             </form>
+            <!-- ./Login form -->
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+    <!-- ./Login container -->
+
   </div>
+  <!-- ./Login caption -->
+
 </section>
+<!-- ./Login section -->
