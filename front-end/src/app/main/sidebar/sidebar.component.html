@@ -22,5 +22,17 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a *ngIf="hasRole('ROLE_PROFILES')" class="nav-link" [routerLink]="['/security/profiles']" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-security"></i>
+        <span class="menu-title">Manage profiles</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a *ngIf="hasRole('ROLE_ROLES')" class="nav-link" [routerLink]="['/security/roles']" routerLinkActive="active">
+        <i class="menu-icon mdi mdi-security-network"></i>
+        <span class="menu-title">Manage roles</span>
+      </a>
+    </li>
   </ul>
 </nav>

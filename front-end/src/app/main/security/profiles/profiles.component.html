@@ -1,0 +1,98 @@
+<!-- Breadcrumb -->
+<nav>
+  <ol class="breadcrumb breadcrumb-custom">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
+    <li class="breadcrumb-item"><a>Security</a></li>
+    <li class="breadcrumb-item active"><span>Manage profiles</span></li>
+  </ol>
+</nav>
+<!-- ./Breadcrumb -->
+
+<div class="row">
+
+  <div class="col-12 grid-margin stretch-card">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <!-- Page title -->
+        <h4 class="card-title">Profiles list</h4>
+        <!-- ./Page title -->
+
+        <div class="table-responsive datatable-container">
+
+          <!-- Profiles table -->
+          <table class="table">
+
+            <thead>
+
+              <tr>
+                <th>#</th>
+                <th>Code</th>
+                <th>Designation</th>
+                <th>Creation date</th>
+                <th>Last update</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngIf="loading">
+                <td colspan="6" class="text-center loading-data">
+                  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                  Loading data.. Please wait
+                </td>
+              </tr>
+
+              <tr *ngIf="loading && data && !data.data.length">
+                <td colspan="6" class="text-center loading-data">
+                  No profiles created yet!
+                </td>
+              </tr>
+
+              <ng-container *ngIf="!loading">
+                <tr *ngFor="let item of data.data; let i = index">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ item.code }}</td>
+                  <td>{{ item.designation }}</td>
+                  <td>{{ item.created_at | date:'medium' }}</td>
+                  <td>{{ item.updated_at | date:'medium' }}</td>
+                  <td class="actions">
+                    <button class="btn btn-dark btn-sm icon-btn" type="button" placement="top" ngbTooltip="Edit profile">
+                      <i class="mdi mdi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm icon-btn" type="button" placement="top" ngbTooltip="Delete profile">
+                      <i class="mdi mdi-delete"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+
+          </table>
+          <!-- ./Profiles table -->
+
+          <!-- Pagination -->
+          <ngb-pagination 
+            *ngIf="!loading && data"
+            [collectionSize]="data.count" 
+            [pageSize]="size" 
+            [page]="data.page"
+            (pageChange)="loadData($event)"
+            class="pagination-rounded-separated d-flex justify-content-end">
+          </ngb-pagination>
+          <!-- ./Pagination -->
+
+        </div>
+
+      </div>
+      
+    </div>
+
+  </div>
+
+</div>

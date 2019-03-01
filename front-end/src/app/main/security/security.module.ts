@@ -5,20 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Module routes
 const routes: Routes = [
-  // Dashboard module
-  { 
-    path: 'dashboard', 
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+  // Profiles module
+  {
+    path: 'profiles',
+    loadChildren: './profiles/profiles.module#ProfilesModule'
   },
-  // Security module
-  { 
-    path: 'security', 
-    loadChildren: './security/security.module#SecurityModule'
-  },
-  // Default redirection to dashboard if route is unknown
-  { 
-    path: '**', 
-    redirectTo: '/dashboard'
+  // Roles module
+  {
+    path: 'roles',
+    loadChildren: './roles/roles.module#RolesModule'
   }
 ];
 
@@ -31,4 +26,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class MainModule { }
+export class SecurityModule { }

@@ -9,6 +9,7 @@ import { JwtHelperService } from '../jwt-helper.service';
 
 // Application authentication service
 import { AuthenticationService } from '../authentication.service';
+import { constants } from '@env/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,7 @@ export class RoleGuard implements CanActivate {
     }
     const flag = this.checkRoles(expectedRoles, userRoles, expectedRolesType);
     if (!flag) {
-      this.authenticationService.logout();
+      this.router.navigate([constants.home_url]);
       return false;
     } else {
       return true;

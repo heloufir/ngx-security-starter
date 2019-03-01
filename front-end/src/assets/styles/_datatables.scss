@@ -1,0 +1,31 @@
+.datatable-container {
+    .table {
+        tr {
+            th,
+            td {
+                vertical-align: middle;
+            }
+            td {
+                &.actions {
+                    button {
+                        &:not(:last-child) {
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+            }
+        }
+        .loading-data {
+            position: relative;
+            mat-progress-bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+    ngb-pagination {
+        margin-top: 20px;
+    }
+}
