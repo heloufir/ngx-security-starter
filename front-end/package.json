@@ -23,7 +23,7 @@
     "@angular/platform-browser-dynamic": "^7.2.6",
     "@angular/router": "^7.2.6",
     "@ng-bootstrap/ng-bootstrap": "^4.0.4",
-    "bootstrap": "^4.3.1",
+    "bootstrap": ">=4.3.1",
     "compass-mixins": "^0.12.10",
     "core-js": "^2.6.5",
     "font-awesome": "^4.7.0",
