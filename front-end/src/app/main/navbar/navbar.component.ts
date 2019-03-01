@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 // Bootstrap dropdown configuration
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from '@services/security/authentication.service';
+import { JwtHelperService } from '@services/security/jwt-helper.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,12 +24,14 @@ export class NavbarComponent implements OnInit {
    * 
    * @param config The bootstrap dopdown configuration
    * @param authenticationService The authentication service
+   * @param jwtHelper The jwt helper service
    *
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
     config: NgbDropdownConfig,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    public jwtHelper: JwtHelperService
   ) {
     config.placement = 'bottom-right';
   }

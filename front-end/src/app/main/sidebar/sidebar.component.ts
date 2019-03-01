@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
-    private jwtHelper: JwtHelperService
+    public jwtHelper: JwtHelperService
   ) { }
 
   /**
