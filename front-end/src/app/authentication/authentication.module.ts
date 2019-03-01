@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
+  },
+  {
+    path: 'recover/:token',
+    loadChildren: './recover/recover.module#RecoverModule'
   }
 ];
 

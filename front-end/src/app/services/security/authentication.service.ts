@@ -105,4 +105,16 @@ export class AuthenticationService {
   forgotPassword(username: string): Observable<any> {
     return this._http.post(environment.auth_url + 'forgot-password', { email: username });
   }
+
+  /**
+   * Request a forgot password
+   * 
+   * @param model The object containing the new password information
+   * @param token The password token string
+   * 
+   * @author EL OUFIR Hatim
+   */
+  recoverPassword(model: any, token: string): Observable<any> {
+    return this._http.put(environment.auth_url + 'recover-password/' + token, model);
+  }
 }

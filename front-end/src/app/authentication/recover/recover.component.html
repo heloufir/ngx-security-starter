@@ -1,0 +1,95 @@
+<!-- Recover password section -->
+<section id="recover-password">
+
+  <!-- Recover password caption -->
+  <div id="recover-password-caption">
+
+    <!-- Recover password container -->
+    <div id="container" class="container">
+      
+      <div class="row">
+
+        <div class="col-sm-6 offset-sm-3 text-center">
+
+          <h1 class="display-3">Recover your password</h1>
+
+          <div class="info-form">
+
+            <br><br>
+
+            <!-- Recover password form -->
+            <form [formGroup]="form" class="justify-content-center" (submit)="recover()">
+
+              <!-- Password field -->
+              <div class="input-group mb-2" [class.has-error]="form.get('password').dirty && form.get('password').invalid">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+                </div>
+                <input type="password" formControlName="password" class="form-control" placeholder="New password">
+              </div>
+              <!-- ./Password field -->
+              
+              <!-- Password field validations container -->
+              <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
+                <div class="col-12">
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('password').dirty && form.controls['password'].hasError('required')">
+                    The password is required
+                  </div>
+                </div>
+              </div>
+              <!-- ./Password field validations container -->
+
+              <!-- Password confirmation field -->
+              <div class="input-group mb-2" [class.has-error]="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+                </div>
+                <input type="password" formControlName="password_confirmation" class="form-control" placeholder="Confirm your password">
+              </div>
+              <!-- ./Password confirmation field -->
+              
+              <!-- Password confirmation field validations container -->
+              <div class="row" *ngIf="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid">
+                <div class="col-12">
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('password_confirmation').dirty && form.controls['password_confirmation'].hasError('required')">
+                    The password confirmation is required
+                  </div>
+                </div>
+              </div>
+              <!-- ./Password confirmation field validations container -->
+
+              <!-- Recover password link -->
+              <div class="row">
+                <div class="col-12">
+                  <a [routerLink]="['/auth/login']" class="btn btn-secondary-outline btn-sm text-left float-left" role="button">Login to your account</a>
+                </div>
+              </div>
+              <!-- ./Recover password link -->
+
+              <!-- Recover password in progress indicator -->
+              <mat-spinner [diameter]="75" *ngIf="loading"></mat-spinner>
+              <!-- ./Recover password in progress indicator -->
+
+              <!-- Form submit button -->
+              <button type="submit" class="btn btn-secondary-outline btn-lgb recover-password-btn" [disabled]="form.invalid || loading">
+                <img src="assets/images/icons/forgot-password.png" alt="Recover password" />
+              </button>
+              <!-- ./Form submit button -->
+              
+            </form>
+            <!-- ./Recover password form -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- ./Recover password container -->
+
+  </div>
+  <!-- ./Recover password caption -->
+
+</section>
+<!-- ./Recover password section -->

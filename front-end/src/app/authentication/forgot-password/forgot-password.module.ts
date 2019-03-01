@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password.component';
 
 // Material modules
-import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 
 // Routes guards
 import { NoAuthGuard } from '@services/security/guards/no-auth.guard';
@@ -36,7 +36,6 @@ const routes: Routes = [
     // Application routes injection into the application forChild() routes
     RouterModule.forChild(routes),
     // Material modules
-    MatIconModule,
     MatProgressSpinnerModule
   ]
 })
