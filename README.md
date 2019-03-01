@@ -1,5 +1,8 @@
+
 # ngx-security-starter
 A full implementation of the heloufir/security-starter with an Angular 7+ front-end implementation
+
+![ngx-security-starter screnshot](https://lh3.googleusercontent.com/iOprWbo6E8tQLBnHvN6EL96RdH6IucLaEb391x_0bu9JtCxSPQUcPHxZ897hn-knm0ylJKLaR2SE=s0 "2019-03-01_235722.png")
 
 ## Installation
 First of all, clone this repository into your local by executing the command:
