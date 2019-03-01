@@ -12,6 +12,9 @@ import { AuthGuard } from '@services/security/guards/auth.guard';
 // Bootstrap module
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Material modules
+import { MatProgressSpinnerModule } from '@angular/material';
+
 // Module routes
 const routes: Routes = [
   // Dashboard component
@@ -33,7 +36,9 @@ const routes: Routes = [
     // Bootstrap module
     NgbModule,
     // Router module
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    // Material modules
+    MatProgressSpinnerModule
   ]
 })
 export class DashboardModule { }

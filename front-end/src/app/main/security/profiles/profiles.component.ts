@@ -1,6 +1,10 @@
 // Angular components
 import { Component, OnInit } from '@angular/core';
+
+// Application services
 import { ProfileService } from '@services/profile.service';
+
+// Application models
 import { PartialList } from '@models/common/partial-list.model';
 import { Profile } from '@models/profile.model';
 

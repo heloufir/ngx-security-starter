@@ -1,0 +1,22 @@
+@import "src/styles";
+.card-statistics {
+    .highlight-icon {
+        height: 53px;
+        width: 53px;
+        @include display-flex;
+        @include align-items(center);
+        @include justify-content(center);
+        @include border-radius(50px);
+        i {
+            font-size: 27px;
+            line-height: 1;
+        }
+    }
+    i {
+        line-height: 1;
+    }
+    mat-spinner {
+        display: block;
+        float: right;
+    }
+}
