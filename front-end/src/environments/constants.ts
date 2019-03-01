@@ -1,4 +1,5 @@
 export const constants = {
+    app_name: 'Ngx Security Starter',
     access_token: 'access_token',
     home_url: '/dashboard',
     auth_url: '/auth/login',

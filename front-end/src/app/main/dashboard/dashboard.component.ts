@@ -1,5 +1,6 @@
 // Angular modules
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 // Application services
 import { ProfileService } from '@services/profile.service';
@@ -9,6 +10,9 @@ import { RoleService } from '@services/role.service';
 import { PartialList } from '@models/common/partial-list.model';
 import { Profile } from 'selenium-webdriver/firefox';
 import { Role } from '@models/role.model';
+
+// Application constants
+import { constants } from '@env/constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,13 +36,18 @@ export class DashboardComponent implements OnInit {
    * 
    * @param profileService The profile service
    * @param roleService The role service
+   * @param titleService The title service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
     private profileService: ProfileService,
-    private roleService: RoleService
-  ) { }
+    private roleService: RoleService,
+    private titleService: Title
+  ) {
+    // Set the page title
+    titleService.setTitle(constants.app_name + ' - Dashboard');
+  }
 
   /**
    * Component OnInit phase

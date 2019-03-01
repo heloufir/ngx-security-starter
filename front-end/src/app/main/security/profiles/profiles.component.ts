@@ -1,6 +1,7 @@
 // Angular components
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 // Application services
 import { ProfileService } from '@services/profile.service';
@@ -17,6 +18,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // Toastr service and utilities
 import { success, error, warning } from '@app/core/utils/toastr';
 import { ToastrService } from 'ngx-toastr';
+
+// Application constants
+import { constants } from '@env/constants';
 
 @Component({
   selector: 'app-profiles',
@@ -70,6 +74,7 @@ export class ProfilesComponent implements OnInit {
    * @param modalService The bootstrap modal service
    * @param _fb The form builder object
    * @param _toastr The toastr service
+   * @param titleService The title service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -78,8 +83,12 @@ export class ProfilesComponent implements OnInit {
     private roleService: RoleService,
     private modalService: NgbModal,
     private _fb: FormBuilder,
-    private _toastr: ToastrService
-  ) { }
+    private _toastr: ToastrService,
+    private titleService: Title
+  ) {
+    // Set the page title
+    titleService.setTitle(constants.app_name + ' - Security - Profiles management');
+  }
 
   /**
    * Component OnInit phase
