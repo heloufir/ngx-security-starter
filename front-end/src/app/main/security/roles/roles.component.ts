@@ -177,7 +177,7 @@ export class RolesComponent implements OnInit {
         designation: this.form.get('designation').value
       }, this.selectedRole.id ? true : false).subscribe((res: Role) => {
         // Show success alert
-        success('Success!', 'The role object is successfully saved.', this._toastr);
+        success('Success!', 'The role is successfully saved.', this._toastr);
         this.savingRole = false;
         // Close role save modal
         this.close(modal, true);
@@ -235,6 +235,7 @@ export class RolesComponent implements OnInit {
       id: this.selectedRole.id
     }).subscribe(() => {
       this.close(modal, true);
+      this.deletingRole = false;
     });
   }
 

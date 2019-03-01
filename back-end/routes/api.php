@@ -2,4 +2,4 @@
 
 Route::resource('users', 'UserController')
     ->except(['create', 'edit'])
-    ->middleware(['roles:ROLE_USERS']);
+    ->middleware(['auth:api', 'roles:ROLE_USERS']);

@@ -1,3 +1,5 @@
+import { Profile } from './profile.model';
+
 /**
  * The user model definition
  *
@@ -44,5 +46,19 @@ export class User {
      * The user's password token
      */
     password_token: string;
+
+    /**
+     * Profiles attached to the user
+     */
+    profiles: Array<Profile>;
+
+    /**
+     * Model constructor
+     *
+     * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+     */
+    constructor() {
+        this.profiles = [];
+    }
 
 }

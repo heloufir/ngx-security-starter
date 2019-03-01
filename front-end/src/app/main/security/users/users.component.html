@@ -1,0 +1,263 @@
+<!-- Breadcrumb -->
+<nav>
+  <ol class="breadcrumb breadcrumb-custom">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
+    <li class="breadcrumb-item"><a>Security</a></li>
+    <li class="breadcrumb-item active"><span>Manage users</span></li>
+  </ol>
+</nav>
+<!-- ./Breadcrumb -->
+
+<div class="row">
+
+  <div class="col-12 grid-margin stretch-card">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <!-- Page title -->
+        <h4 class="card-title">
+          Users list
+          <br>
+          <a class="btn btn-sm btn-primary float-right" (click)="initSave(saveModal)"><i class="mdi mdi-plus"></i> Add
+            new
+            user</a>
+        </h4>
+        <!-- ./Page title -->
+
+        <div class="table-responsive datatable-container">
+
+          <!-- Users table -->
+          <table class="table">
+
+            <thead>
+
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email address</th>
+                <th>Profiles attached</th>
+                <th>Creation date</th>
+                <th>Last update</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr *ngIf="loading">
+                <td colspan="7" class="text-center loading-data">
+                  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                  Loading data.. Please wait
+                </td>
+              </tr>
+
+              <tr *ngIf="loading && data && !data.data.length">
+                <td colspan="7" class="text-center loading-data">
+                  No users created yet!
+                </td>
+              </tr>
+
+              <ng-container *ngIf="!loading">
+                <tr *ngFor="let item of data.data; let i = index">
+                  <td>{{ i+1 }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.profiles.length }}</td>
+                  <td>{{ item.created_at | date:'medium' }}</td>
+                  <td>{{ item.updated_at | date:'medium' }}</td>
+                  <td class="actions">
+                    <button class="btn btn-dark btn-sm icon-btn" type="button" (click)="initSave(saveModal, item)">
+                      <i class="mdi mdi-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm icon-btn" type="button" (click)="initDelete(deleteModal, item)">
+                      <i class="mdi mdi-delete"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+
+          </table>
+          <!-- ./Users table -->
+
+          <!-- Pagination -->
+          <ngb-pagination *ngIf="!loading && data" [collectionSize]="data.count" [pageSize]="size" [page]="data.page"
+            (pageChange)="loadData($event)" class="pagination-rounded-separated d-flex justify-content-end">
+          </ngb-pagination>
+          <!-- ./Pagination -->
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- User save modal -->
+<ng-template #saveModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">{{ selectedUser.id ? ('Update user: ' + selectedUser.name) : 'Create new user' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+
+    <form [formGroup]="form" *ngIf="!loadingProfiles">
+
+      <!-- Name field -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" 
+          [class.has-error]="form.get('name').dirty && form.get('name').invalid" />
+      </div>
+      <!-- ./Name field -->
+
+      <!-- Name field validations container -->
+      <div class="row" *ngIf="form.get('name').dirty && form.get('name').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('name').dirty && form.controls['name'].hasError('required')">
+            The name is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('name').dirty && form.get('name').hasError('maxLength')">
+            The name must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Name field validations container -->
+      
+      <!-- Email address field -->
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" class="form-control" id="email" formControlName="email"
+          [class.has-error]="form.get('email').dirty && form.get('email').invalid" />
+      </div>
+      <!-- ./Email address field -->
+
+      <!-- Email address field validations container -->
+      <div class="row" *ngIf="form.get('email').dirty && form.get('email').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('email').dirty && form.controls['email'].hasError('required')">
+            The email is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('email').dirty && form.get('email').hasError('maxLength')">
+            The email must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Email address field validations container -->
+
+      <!-- Password field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password"
+          [class.has-error]="form.get('password').dirty && form.get('password').invalid" />
+      </div>
+      <!-- ./Password field -->
+
+      <!-- Password field validations container -->
+      <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('password').dirty && form.controls['password'].hasError('required')">
+            The password is required
+          </div>
+        </div>
+      </div>
+      <!-- ./Password field validations container -->
+
+      <!-- Password confirmation field -->
+      <div class="form-group">
+        <label for="password_confirmation">Password confirmation</label>
+        <input type="password" class="form-control" id="password_confirmation" formControlName="password_confirmation"
+          [class.has-error]="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid" />
+      </div>
+      <!-- ./Password confirmation field -->
+
+      <!-- Password confirmation field validations container -->
+      <div class="row" *ngIf="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('password_confirmation').dirty && form.controls['password_confirmation'].hasError('required')">
+            The password confirmation is required
+          </div>
+        </div>
+      </div>
+      <!-- ./Password confirmation field validations container -->
+
+      <!-- Profiles checkboxes -->
+      <ng-container
+        *ngFor="let profile of profiles">
+        <div class="row">
+          <div class="col-12">
+            <mat-checkbox
+              color="primary"
+              (change)="selectProfile(profile)"
+              [checked]="selectedUserHasProfile(profile)">
+              {{ profile.designation }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </ng-container>
+      <!-- ./Profiles checkboxes -->
+
+    </form>
+
+    <!-- Loading profiles indicator -->
+    <mat-spinner class="loading-profiles" *ngIf="loadingProfiles"></mat-spinner>
+    <!-- Loading profiles indicator -->
+
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save(modal)" [disabled]="form.invalid || savingUser">Save</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./User save modal -->
+
+<!-- User delete confirmation modal -->
+<ng-template #deleteModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">Delete user</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <p>Are you sure you want to delete this user?</p>
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="deletingUser" (click)="delete(modal)">Delete</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./User delete confirmation modal -->

@@ -49,7 +49,7 @@ class User extends Authenticatable
     public function roles(): array
     {
         $results = collect();
-        foreach ($this->profiles() as $profile) {
+        foreach ($this->profiles as $profile) {
             foreach ($profile->roles as $role) {
                 if (!$results->contains($role->code)) {
                     $results->push($role->code);

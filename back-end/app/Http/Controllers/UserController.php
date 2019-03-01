@@ -153,7 +153,7 @@ class UserController extends Controller
                     ]);
             }
         }
-        return response()->json(User::where('id', $user->id)->with(['roles'])->first(), 200);
+        return response()->json(User::where('id', $user->id)->with(['profiles'])->first(), 200);
     }
 
     /**

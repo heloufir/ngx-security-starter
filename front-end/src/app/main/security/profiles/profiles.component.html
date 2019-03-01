@@ -164,13 +164,19 @@
       <!-- ./Designation field validations container -->
 
       <!-- Roles checkboxes -->
-      <mat-checkbox
-        *ngFor="let role of roles"
-        color="primary"
-        (change)="selectRole(role)"
-        [checked]="selectedProfileHasRole(role)">
-        {{ role.designation }}
-      </mat-checkbox>
+      <ng-container
+        *ngFor="let role of roles">
+        <div class="row">
+          <div class="col-12">
+            <mat-checkbox
+              color="primary"
+              (change)="selectRole(role)"
+              [checked]="selectedProfileHasRole(role)">
+              {{ role.designation }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </ng-container>
       <!-- ./Roles checkboxes -->
 
     </form>

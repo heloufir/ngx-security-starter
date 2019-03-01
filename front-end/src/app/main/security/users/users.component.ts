@@ -4,13 +4,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
 // Application services
+import { UserService } from '@services/user.service';
 import { ProfileService } from '@services/profile.service';
-import { RoleService } from '@services/role.service';
 
 // Application models
 import { PartialList } from '@models/common/partial-list.model';
+import { User } from '@models/user.model';
 import { Profile } from '@models/profile.model';
-import { Role } from '@models/role.model';
 
 // Bootstrap modules
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -23,24 +23,24 @@ import { ToastrService } from 'ngx-toastr';
 import { constants } from '@env/constants';
 
 @Component({
-  selector: 'app-profiles',
-  templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.scss']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class ProfilesComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   /**
-   * The profiles partial list object
+   * The users partial list object
    */
-  data: PartialList<Profile>;
+  data: PartialList<User>;
 
   /**
    * Loading data indicator
    */
   loading: boolean;
-  loadingRoles: boolean;
-  savingProfile: boolean;
-  deletingProfile: boolean;
+  loadingProfiles: boolean;
+  savingUser: boolean;
+  deletingUser: boolean;
 
   /**
    * Current loaded page
@@ -58,20 +58,20 @@ export class ProfilesComponent implements OnInit {
   form: FormGroup;
 
   /**
-   * Roles list
+   * Profiles list
    */
-  roles: Array<Role>;
+  profiles: Array<Profile>;
 
   /**
-   * Profile object to save
+   * User object to save
    */
-  selectedProfile: Profile;
+  selectedUser: User;
 
   /**
    * Component constructor
    * 
+   * @param userService The user service
    * @param profileService The profile service
-   * @param roleService The role service
    * @param modalService The bootstrap modal service
    * @param _fb The form builder object
    * @param _toastr The toastr service
@@ -80,15 +80,15 @@ export class ProfilesComponent implements OnInit {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
+    private userService: UserService,
     private profileService: ProfileService,
-    private roleService: RoleService,
     private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     titleService: Title
   ) {
     // Set the page title
-    titleService.setTitle(constants.app_name + ' - Security - Profiles management');
+    titleService.setTitle(constants.app_name + ' - Security - Users management');
   }
 
   /**
@@ -97,45 +97,45 @@ export class ProfilesComponent implements OnInit {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   ngOnInit(): void {
-    // Load profiles list
+    // Load users list
     this.loadData();
   }
 
   /**
-   * Load profiles data
+   * Load users data
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   loadData(page?: number): void {
     this.page = page ? page : this.page;
     this.loading = true;
-    this.profileService.find({
+    this.userService.find({
       page: this.page,
       size: this.size
-    }).subscribe((res: PartialList<Profile>) => {
+    }).subscribe((res: PartialList<User>) => {
       this.data = res;
       this.loading = false;
     });
   }
 
   /**
-   * Open the profile save modal
+   * Open the user save modal
    * 
-   * @param modal The profile save modal object
+   * @param modal The user save modal object
    * 
    * @author EL OUFIR Hatim
    */
-  initSave(modal: any, profile?: Profile): void {
-    // Initialize the form group with the profile passed in parameter
-    this.initSaveForm(profile);
-    // Get the roles list
-    this.loadingRoles = true;
-    this.roleService.find()
-      .subscribe((res: PartialList<Role>) => {
-        this.roles = res.data;
-        this.loadingRoles = false;
+  initSave(modal: any, user?: User): void {
+    // Initialize the form group with the user passed in parameter
+    this.initSaveForm(user);
+    // Get the profiles list
+    this.loadingProfiles = true;
+    this.profileService.find()
+      .subscribe((res: PartialList<Profile>) => {
+        this.profiles = res.data;
+        this.loadingProfiles = false;
       });
-    // Open the profile save modal
+    // Open the user save modal
     this.modalService
       .open(modal)
       .result
@@ -156,74 +156,84 @@ export class ProfilesComponent implements OnInit {
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  initSaveForm(profile?: Profile): void {
-    // Initialize the selected profile object
-    if (profile) {
-      this.selectedProfile = Object.assign(Profile, profile);
+  initSaveForm(user?: User): void {
+    // Initialize the selected user object
+    if (user) {
+      this.selectedUser = Object.assign({}, user);
     } else {
-      this.selectedProfile = new Profile();
+      this.selectedUser = new User();
     }
     // Initialize the form group object
     this.form = this._fb.group({
-      code: [
-        profile ? profile.code : '',
+      email: [
+        user ? user.email : '',
         [Validators.required, Validators.maxLength(255)]
       ],
-      designation: [
-        profile ? profile.designation : '',
+      name: [
+        user ? user.name : '',
         [Validators.required, Validators.maxLength(255)]
+      ],
+      password: [
+        '',
+        user && user.id ? [] : [Validators.required]
+      ],
+      password_confirmation: [
+        '',
+        user && user.id ? [] : [Validators.required]
       ]
     });
   }
 
   /**
-   * Check if the selected profile contains the role passed in parameter
+   * Check if the selected user contains the profile passed in parameter
    * 
-   * @param role The role object to check
+   * @param profile The profile object to check
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  selectedProfileHasRole(role: Role): boolean {
-    return this.selectedProfile.roles.some((r: Role) => r.id === role.id);
+  selectedUserHasProfile(profile: Profile): boolean {
+    return this.selectedUser.profiles.some((r: Profile) => r.id === profile.id);
   }
 
   /**
-   * Select a role
+   * Select a profile
    * 
-   * @param role The role selected
+   * @param profile The profile selected
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  selectRole(role: Role): void {
-    if (this.selectedProfileHasRole(role)) {
-      this.selectedProfile.roles.splice(this.selectedProfile.roles.findIndex((r: Role) => r.id === role.id), 1);
+  selectProfile(profile: Profile): void {
+    if (this.selectedUserHasProfile(profile)) {
+      this.selectedUser.profiles.splice(this.selectedUser.profiles.findIndex((r: Profile) => r.id === profile.id), 1);
     } else {
-      this.selectedProfile.roles.push(role);
+      this.selectedUser.profiles.push(profile);
     }
   }
 
   /**
-   * Save the selected profile
+   * Save the selected user
    * 
-   * @param modal The profile save modal object
+   * @param modal The user save modal object
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   save(modal: any): void {
     // Check if the form is valid
     if (this.form.valid) {
-      this.savingProfile = true;
+      this.savingUser = true;
       // Send save / update request to the service
-      this.profileService.save({
-        id: this.selectedProfile.id,
-        code: this.form.get('code').value,
-        designation: this.form.get('designation').value,
-        roles: this.selectedProfile.roles.map((r: Role) => r.id)
-      }, this.selectedProfile.id ? true : false).subscribe((res: Profile) => {
+      this.userService.save({
+        id: this.selectedUser.id,
+        email: this.form.get('email').value,
+        name: this.form.get('name').value,
+        password: this.form.get('password').value,
+        password_confirmation: this.form.get('password_confirmation').value,
+        profiles: this.selectedUser.profiles.map((r: Profile) => r.id)
+      }, this.selectedUser.id ? true : false).subscribe((res: User) => {
         // Show success alert
-        success('Success!', 'The profile is successfully saved.', this._toastr);
-        this.savingProfile = false;
-        // Close profile save modal
+        success('Success!', 'The user is successfully saved.', this._toastr);
+        this.savingUser = false;
+        // Close user save modal
         this.close(modal, true);
       }, (err: any) => {
         // Check if the error status is 403 (Form errors)
@@ -234,23 +244,23 @@ export class ProfilesComponent implements OnInit {
           });
         } else {
           // Else, show an internal server error alert
-          error('Error!', 'An error has occured when saving the profile, please contact system administrator.', this._toastr);
+          error('Error!', 'An error has occured when saving the user, please contact system administrator.', this._toastr);
         }
-        this.savingProfile = false;
+        this.savingUser = false;
       });
     }
   }
 
   /**
-   * Open the profile delete confirmation modal
+   * Open the user delete confirmation modal
    * 
-   * @param modal The profile delete confirmation modal object
-   * @param profile The profile to delete
+   * @param modal The user delete confirmation modal object
+   * @param user The user to delete
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  initDelete(modal: any, profile: Profile): void {
-    this.selectedProfile = profile;
+  initDelete(modal: any, user: User): void {
+    this.selectedUser = user;
     // Open the delete confirmation modal
     this.modalService
       .open(modal)
@@ -259,27 +269,27 @@ export class ProfilesComponent implements OnInit {
         if (result) {
           this.loadData();
         }
-        this.selectedProfile = new Profile();
+        this.selectedUser = new User();
       }, () => {
         // If the modal is dismissed
-        this.selectedProfile = new Profile();
+        this.selectedUser = new User();
       });
   }
 
   /**
-   * Delete a profile
+   * Delete a user
    * 
-   * @param modal The profile delete confirmation modal
+   * @param modal The user delete confirmation modal
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   delete(modal: any): void {
-    this.deletingProfile = true;
-    this.profileService.delete({
-      id: this.selectedProfile.id
+    this.deletingUser = true;
+    this.userService.delete({
+      id: this.selectedUser.id
     }).subscribe(() => {
       this.close(modal, true);
-      this.deletingProfile = false;
+      this.deletingUser = false;
     });
   }
 

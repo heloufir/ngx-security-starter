@@ -12,9 +12,6 @@ import 'rxjs/add/operator/mergeMap';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
-// Application authentication serice
-import { AuthenticationService } from '../authentication.service';
-
 // Application constants
 import { constants } from 'environments/constants';
 
@@ -33,13 +30,11 @@ export class InterceptorService implements HttpInterceptor {
    * Service constructor
    * 
    * @param router The router object
-   * @param authenticationService The authentication service
    *
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
+    private router: Router
   ) {
 
   }
@@ -90,7 +85,7 @@ export class InterceptorService implements HttpInterceptor {
       .catch(err => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
-            this.authenticationService.logout();
+            this.router.navigate([constants.auth_url]);
           } else if (err.status === 500) {
             this.router.navigateByUrl(constants.error_500);
           }
