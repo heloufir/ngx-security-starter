@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 // Application services
 import { ProfileService } from '@services/profile.service';
 import { RoleService } from '@services/role.service';
+import { UserService } from '@services/user.service';
 
 // Application models
 import { PartialList } from '@models/common/partial-list.model';
@@ -32,10 +33,16 @@ export class DashboardComponent implements OnInit {
   rolesStatistics: number = null;
 
   /**
+   * Users count statistics
+   */
+  usersStatistics: number = null;
+
+  /**
    * Component constructor
    * 
    * @param profileService The profile service
    * @param roleService The role service
+   * @param userService The user service
    * @param titleService The title service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
@@ -43,6 +50,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private roleService: RoleService,
+    private userService: UserService,
     titleService: Title
   ) {
     // Set the page title
@@ -59,6 +67,8 @@ export class DashboardComponent implements OnInit {
     this.loadProfilesStatistics();
     // Load roles count
     this.loadRolesStatistics();
+    // Load users count
+    this.loadUsersStatistics();
   }
 
   /**
@@ -86,6 +96,20 @@ export class DashboardComponent implements OnInit {
       size: 0
     }).subscribe((res: PartialList<Role>) => {
       this.rolesStatistics = res.count;
+    });
+  }
+
+  /**
+   * Load users count statistics
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  private loadUsersStatistics(): void {
+    this.usersStatistics = null;
+    this.userService.find({
+      size: 0
+    }).subscribe((res: PartialList<Role>) => {
+      this.usersStatistics = res.count;
     });
   }
 
