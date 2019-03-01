@@ -47,7 +47,13 @@ export class CrudService<T> {
     private _http: HttpClient
   ) {
     // Set the default request options and headers
-    this.headers = new Headers({ 'Accept': 'application/json', 'Content-Type': 'application/json' });
+    this.headers = new Headers({ 
+      'Accept': 'application/json', 
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
     this.options = new RequestOptions({ headers: this.headers });
   }
 
@@ -61,6 +67,8 @@ export class CrudService<T> {
   public find(query?: {}): any {
     if (query) {
       this.options.params = query;
+    } else {
+      this.options.params = undefined;
     }
     return this._http.get<PartialList<T>>(this.url, this.options);
   }
