@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Roles component
 import { RolesComponent } from './roles.component';
@@ -38,6 +39,8 @@ const routes: Routes = [
   imports: [
     // Angular modules
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     // Bootstrap module
     NgbModule,
     // Router module

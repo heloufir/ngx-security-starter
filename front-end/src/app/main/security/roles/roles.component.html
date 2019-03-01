@@ -19,7 +19,7 @@
         <!-- Page title -->
         <h4 class="card-title">
           Roles list
-          <a class="btn btn-sm btn-primary float-right"><i class="mdi mdi-plus"></i> Add new role</a>
+          <a class="btn btn-sm btn-primary float-right" (click)="initSave(saveModal)"><i class="mdi mdi-plus"></i> Add new role</a>
         </h4>
         <!-- ./Page title -->
 
@@ -64,10 +64,10 @@
                   <td>{{ item.created_at | date:'medium' }}</td>
                   <td>{{ item.updated_at | date:'medium' }}</td>
                   <td class="actions">
-                    <button class="btn btn-dark btn-sm icon-btn" type="button" placement="top" ngbTooltip="Edit role">
+                    <button class="btn btn-dark btn-sm icon-btn" type="button" (click)="initSave(saveModal, item)">
                       <i class="mdi mdi-pencil"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm icon-btn" type="button" placement="top" ngbTooltip="Delete role">
+                    <button class="btn btn-danger btn-sm icon-btn" type="button" (click)="initDelete(deleteModal, item)">
                       <i class="mdi mdi-delete"></i>
                     </button>
                   </td>
@@ -99,3 +99,110 @@
   </div>
 
 </div>
+
+<!-- Role save modal -->
+<ng-template #saveModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">
+      {{ selectedRole.id ? ('Update role: ' + selectedRole.designation) : 'Create new role' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+
+    <form [formGroup]="form">
+
+      <!-- Code field -->
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input type="text" class="form-control" id="code" formControlName="code"
+          [class.has-error]="form.get('code').dirty && form.get('code').invalid" />
+      </div>
+      <!-- ./Code field -->
+
+      <!-- Code field validations container -->
+      <div class="row" *ngIf="form.get('code').dirty && form.get('code').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('code').dirty && form.controls['code'].hasError('required')">
+            The code is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('code').dirty && form.get('code').hasError('maxLength')">
+            The code must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Code field validations container -->
+
+      <!-- Designation field -->
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <input type="text" class="form-control" id="designation" formControlName="designation"
+          [class.has-error]="form.get('designation').dirty && form.get('designation').invalid" />
+      </div>
+      <!-- ./Designation field -->
+
+      <!-- Designation field validations container -->
+      <div class="row" *ngIf="form.get('designation').dirty && form.get('designation').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('designation').dirty && form.controls['designation'].hasError('required')">
+            The designation is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('designation').dirty && form.get('designation').hasError('maxLength')">
+            The designation must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Designation field validations container -->
+
+    </form>
+
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save(modal)"
+      [disabled]="form.invalid || savingRole">Save</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./Role save modal -->
+
+<!-- Role delete confirmation modal -->
+<ng-template #deleteModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">Delete role</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <p>Are you sure you want to delete this role?</p>
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="deletingRole"
+      (click)="delete(modal)">Delete</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./Role delete confirmation modal -->

@@ -71,6 +71,7 @@ export class ProfilesComponent implements OnInit {
    * Component constructor
    * 
    * @param profileService The profile service
+   * @param roleService The role service
    * @param modalService The bootstrap modal service
    * @param _fb The form builder object
    * @param _toastr The toastr service
