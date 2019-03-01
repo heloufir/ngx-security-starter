@@ -105,6 +105,11 @@ The sample user credentials are:
 * Email address: **john.doe@gmail.com**
 * Passwrd: **secret**
 
+## Related repositories
+
+* [Simple passport](https://github.com/heloufir/simple-passport): An implementation of laravel/passport package and an implementation of a simple forgot password system
+* [Security starter](https://github.com/heloufir/security-starter): An implementation of heloufir/simple-passport package and an implementation of a simple USER_PROFILE_ROLE architecture, and some good utilities to start your project and focus into your business logic
+
 ## Credits
 
 This starter application use the **[StarAdmin Angular template](https://github.com/BootstrapDash/StarAdmin-Free-Angular-Admin-Template)**, it's a beautiful template to start your project with, you can check the link to have more information about it!
