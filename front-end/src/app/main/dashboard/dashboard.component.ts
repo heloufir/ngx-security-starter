@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private roleService: RoleService,
-    private titleService: Title
+    titleService: Title
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Dashboard');

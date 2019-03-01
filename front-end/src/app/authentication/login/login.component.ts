@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _router: Router,
     private _toastr: ToastrService,
-    private titleService: Title
+    titleService: Title
   ) {
     // Update application layout settings
     this.config.setSettings({

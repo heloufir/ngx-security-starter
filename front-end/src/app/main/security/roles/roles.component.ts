@@ -49,7 +49,7 @@ export class RolesComponent implements OnInit {
    */
   constructor(
     private roleService: RoleService,
-    private titleService: Title
+    titleService: Title
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Security - Roles management');

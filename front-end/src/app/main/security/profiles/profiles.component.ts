@@ -84,7 +84,7 @@ export class ProfilesComponent implements OnInit {
     private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    private titleService: Title
+    titleService: Title
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Security - Profiles management');
