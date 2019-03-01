@@ -17,7 +17,13 @@
       <div class="card-body">
 
         <!-- Page title -->
-        <h4 class="card-title">Profiles list</h4>
+        <h4 class="card-title">
+          Profiles list
+          <br>
+          <a class="btn btn-sm btn-primary float-right" (click)="initSave(saveModal)"><i class="mdi mdi-plus"></i> Add
+            new
+            profile</a>
+        </h4>
         <!-- ./Page title -->
 
         <div class="table-responsive datatable-container">
@@ -31,6 +37,7 @@
                 <th>#</th>
                 <th>Code</th>
                 <th>Designation</th>
+                <th>Roles attached</th>
                 <th>Creation date</th>
                 <th>Last update</th>
                 <th>Actions</th>
@@ -41,14 +48,14 @@
             <tbody>
 
               <tr *ngIf="loading">
-                <td colspan="6" class="text-center loading-data">
+                <td colspan="7" class="text-center loading-data">
                   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
                   Loading data.. Please wait
                 </td>
               </tr>
 
               <tr *ngIf="loading && data && !data.data.length">
-                <td colspan="6" class="text-center loading-data">
+                <td colspan="7" class="text-center loading-data">
                   No profiles created yet!
                 </td>
               </tr>
@@ -58,13 +65,14 @@
                   <td>{{ i+1 }}</td>
                   <td>{{ item.code }}</td>
                   <td>{{ item.designation }}</td>
+                  <td>{{ item.roles.length }}</td>
                   <td>{{ item.created_at | date:'medium' }}</td>
                   <td>{{ item.updated_at | date:'medium' }}</td>
                   <td class="actions">
-                    <button class="btn btn-dark btn-sm icon-btn" type="button" placement="top" ngbTooltip="Edit profile">
+                    <button class="btn btn-dark btn-sm icon-btn" type="button" (click)="initSave(saveModal, item)">
                       <i class="mdi mdi-pencil"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm icon-btn" type="button" placement="top" ngbTooltip="Delete profile">
+                    <button class="btn btn-danger btn-sm icon-btn" type="button" (click)="initDelete(deleteModal, item)">
                       <i class="mdi mdi-delete"></i>
                     </button>
                   </td>
@@ -77,22 +85,135 @@
           <!-- ./Profiles table -->
 
           <!-- Pagination -->
-          <ngb-pagination 
-            *ngIf="!loading && data"
-            [collectionSize]="data.count" 
-            [pageSize]="size" 
-            [page]="data.page"
-            (pageChange)="loadData($event)"
-            class="pagination-rounded-separated d-flex justify-content-end">
+          <ngb-pagination *ngIf="!loading && data" [collectionSize]="data.count" [pageSize]="size" [page]="data.page"
+            (pageChange)="loadData($event)" class="pagination-rounded-separated d-flex justify-content-end">
           </ngb-pagination>
           <!-- ./Pagination -->
 
         </div>
 
       </div>
-      
+
     </div>
 
   </div>
 
 </div>
+
+<!-- Profile save modal -->
+<ng-template #saveModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">{{ selectedProfile.id ? ('Update profile: ' + selectedProfile.designation) : 'Create new profile' }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+
+    <form [formGroup]="form" *ngIf="!loadingRoles">
+
+      <!-- Code field -->
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input type="text" class="form-control" id="code" formControlName="code" 
+          [class.has-error]="form.get('code').dirty && form.get('code').invalid" />
+      </div>
+      <!-- ./Code field -->
+
+      <!-- Code field validations container -->
+      <div class="row" *ngIf="form.get('code').dirty && form.get('code').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('code').dirty && form.controls['code'].hasError('required')">
+            The code is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('code').dirty && form.get('code').hasError('maxLength')">
+            The code must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Code field validations container -->
+      
+      <!-- Designation field -->
+      <div class="form-group">
+        <label for="designation">Designation</label>
+        <input type="text" class="form-control" id="designation" formControlName="designation"
+          [class.has-error]="form.get('designation').dirty && form.get('designation').invalid" />
+      </div>
+      <!-- ./Designation field -->
+
+      <!-- Designation field validations container -->
+      <div class="row" *ngIf="form.get('designation').dirty && form.get('designation').invalid">
+        <div class="col-12">
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('designation').dirty && form.controls['designation'].hasError('required')">
+            The designation is required
+          </div>
+          <div class="alert alert-danger alert-transparent-left" role="alert"
+            *ngIf="form.get('designation').dirty && form.get('designation').hasError('maxLength')">
+            The designation must be less than 255 characters
+          </div>
+        </div>
+      </div>
+      <!-- ./Designation field validations container -->
+
+      <!-- Roles checkboxes -->
+      <mat-checkbox
+        *ngFor="let role of roles"
+        color="primary"
+        (change)="selectRole(role)"
+        [checked]="selectedProfileHasRole(role)">
+        {{ role.designation }}
+      </mat-checkbox>
+      <!-- ./Roles checkboxes -->
+
+    </form>
+
+    <!-- Loading roles indicator -->
+    <mat-spinner class="loading-roles" *ngIf="loadingRoles"></mat-spinner>
+    <!-- Loading roles indicator -->
+
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save(modal)" [disabled]="form.invalid || savingProfile">Save</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./Profile save modal -->
+
+<!-- Profile delete confirmation modal -->
+<ng-template #deleteModal let-modal>
+
+  <!-- Modal header -->
+  <div class="modal-header">
+    <h4 class="modal-title">Delete profile</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close(modal)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <!-- ./Modal header -->
+
+  <!-- Modal body -->
+  <div class="modal-body">
+    <p>Are you sure you want to delete this profile?</p>
+  </div>
+  <!-- ./Modal body -->
+
+  <!-- Modal footer -->
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" [disabled]="deletingProfile" (click)="delete(modal)">Delete</button>
+  </div>
+  <!-- ./Modal footer -->
+
+</ng-template>
+<!-- ./Profile delete confirmation modal -->

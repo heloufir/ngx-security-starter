@@ -95,7 +95,7 @@ export class InterceptorService implements HttpInterceptor {
             this.router.navigateByUrl(constants.error_500);
           }
         }
-        return ErrorObservable.create(new Error(err));
+        return ErrorObservable.create(err);
       });
   }
 }

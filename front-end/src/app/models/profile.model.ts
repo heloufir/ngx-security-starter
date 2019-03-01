@@ -34,4 +34,13 @@ export class Profile {
      */
     users: Array<User>;
 
+    /**
+     * Model constructor
+     * 
+     * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+     */
+    constructor() {
+        this.roles = [];
+    }
+
 }

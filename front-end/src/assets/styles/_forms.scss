@@ -13,6 +13,7 @@
 }
 
 .form-control {
+    height: 35px;
     border: 1px solid $border-color;
     font-family: $type-1;
     font-size: $input-font-size;
@@ -59,7 +60,8 @@ select {
     }
 }
 
-.input-group {
+.input-group,
+.form-control {
     &.has-error {
         border: 1px solid #d44b4b;
     }
