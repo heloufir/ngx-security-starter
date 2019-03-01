@@ -38,4 +38,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the list of user's roles
+     *
+     * @return array The user's roles array
+     *
+     * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+     */
+    public function roles(): array
+    {
+        $results = collect();
+        foreach ($this->profiles() as $profile) {
+            foreach ($profile->roles as $role) {
+                if (!$results->contains($role->code)) {
+                    $results->push($role->code);
+                }
+            }
+        }
+        return $results->toArray();
+    }
 }
