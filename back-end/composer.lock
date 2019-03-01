@@ -774,16 +774,16 @@
         },
         {
             "name": "heloufir/security-starter",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heloufir/security-starter.git",
-                "reference": "136e50154551946c4ed70fa276b9a432a3e47cbc"
+                "reference": "4c8dcbffabdbfbabf6204df7d8e1888216bf0f82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/136e50154551946c4ed70fa276b9a432a3e47cbc",
-                "reference": "136e50154551946c4ed70fa276b9a432a3e47cbc",
+                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/4c8dcbffabdbfbabf6204df7d8e1888216bf0f82",
+                "reference": "4c8dcbffabdbfbabf6204df7d8e1888216bf0f82",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 }
             ],
             "description": "Seucirty starter is a full implementation of laravel/passport and heloufir/simple-passport, containing all the implementations of the authentication and forgot password systems, which allows you to start your project from a good foundation, and only worry about the business logic of your application.",
-            "time": "2019-03-01T14:18:22+00:00"
+            "time": "2019-03-01T14:44:32+00:00"
         },
         {
             "name": "heloufir/simple-passport",

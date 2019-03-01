@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-// Module components
-import { LoginComponent } from './login.component';
+// Forgot password component
+import { ForgotPasswordComponent } from './forgot-password.component';
 
 // Material modules
 import { MatIconModule, MatProgressSpinnerModule } from '@angular/material';
@@ -17,15 +17,15 @@ import { NoAuthGuard } from '@services/security/guards/no-auth.guard';
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: ForgotPasswordComponent,
     canActivate: [ NoAuthGuard ]
   }
 ];
 
 @NgModule({
   declarations: [
-    // Module components
-    LoginComponent
+    // Forgot password component
+    ForgotPasswordComponent
   ],
   imports: [
     // Angular modules
@@ -40,4 +40,4 @@ const routes: Routes = [
     MatProgressSpinnerModule
   ]
 })
-export class LoginModule { }
+export class ForgotPasswordModule { }

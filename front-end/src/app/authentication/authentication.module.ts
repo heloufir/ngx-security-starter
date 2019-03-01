@@ -3,13 +3,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-/**
- * Authentication module routes
- */
+// Authentication module routes
 const routes: Routes = [
   {
     path: 'login',
     loadChildren: './login/login.module#LoginModule'
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule'
   }
 ];
 

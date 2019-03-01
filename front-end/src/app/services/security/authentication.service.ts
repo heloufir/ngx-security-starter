@@ -94,4 +94,15 @@ export class AuthenticationService {
     localStorage.removeItem(constants.access_token);
     this._router.navigateByUrl(constants.auth_url);
   }
+
+  /**
+   * Request a forgot password
+   * 
+   * @param username The user's email address
+   * 
+   * @author EL OUFIR Hatim
+   */
+  forgotPassword(username: string): Observable<any> {
+    return this._http.post(environment.auth_url + 'forgot-password', { email: username });
+  }
 }
