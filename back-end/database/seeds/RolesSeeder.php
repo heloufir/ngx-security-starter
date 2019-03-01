@@ -25,6 +25,11 @@ class RolesSeeder extends Seeder
                     'designation' => 'Profiles management access',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
+                ], [
+                    'code' => 'ROLE_USERS',
+                    'designation' => 'Users management access',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
                 ]
             ]);
     }

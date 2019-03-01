@@ -20,6 +20,10 @@ class ProfileRolesSeeder extends Seeder
             ->where('code', 'ROLE_PROFILES')
             ->first()
             ->id;
+        $roleUsers = DB::table(config('security-starter.tables.roles'))
+            ->where('code', 'ROLE_USERS')
+            ->first()
+            ->id;
         $profile = DB::table(config('security-starter.tables.profiles'))
             ->where('code', 'PROFILE_ADMIN')
             ->first()
@@ -31,6 +35,9 @@ class ProfileRolesSeeder extends Seeder
                     'refProfile' => $profile
                 ], [
                     'refRole' => $roleProfiles,
+                    'refProfile' => $profile
+                ], [
+                    'refRole' => $roleUsers,
                     'refProfile' => $profile
                 ]
             ]);
