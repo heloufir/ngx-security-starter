@@ -1,10 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "heloufir/ngx-security-starter",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "A full implementation of the heloufir/security-starter with an Angular 7+ front-end implementation, with a laravel 5.8.* server",
     "keywords": [
-        "framework",
-        "laravel"
+        "angular",
+        "laravel",
+        "laravel-passport",
+        "oauth2",
+        "middleware"
     ],
     "license": "MIT",
     "require": {
