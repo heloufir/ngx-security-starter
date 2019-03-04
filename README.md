@@ -122,5 +122,6 @@ This starter application use the **[StarAdmin Angular template](https://github.c
 | Release  | Description |
 | ------------- | ------------- |
 | **1.0**  | First stable version: Initial version  |
+| **1.1**  | Upgrade **heloufir/security-starter** version (Bug-fixing)  |
 
 # Happy coding!
