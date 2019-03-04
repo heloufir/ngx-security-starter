@@ -27,6 +27,7 @@ After that the repository is cloned into your local, you need to follow the next
 Create the `.env` file in the **back-end** root path, this file needs to have the following configuration variables to make the starter work perfectly:
 
 > **heloufir/simple-passport** package variables *(of course you can customize it as you want)*
+
 ```
   SP_RECOVER_URL=http://localhost:4200/auth/recover/
   SP_MAIL_FROM=noreply@application.com
@@ -34,6 +35,7 @@ Create the `.env` file in the **back-end** root path, this file needs to have th
 ```
 
 > **SMTP** server configuration *(of course you can customize it as you want)*
+
 ```
   MAIL_DRIVER=smtp
   MAIL_HOST=smtp.mailtrap.io
@@ -44,6 +46,7 @@ Create the `.env` file in the **back-end** root path, this file needs to have th
 ```
 
 > **Database** configuration *(of course you can customize it as you want)*
+
 ```
   DB_CONNECTION=mysql
   DB_HOST=127.0.0.1
