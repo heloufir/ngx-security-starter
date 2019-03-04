@@ -1,6 +1,14 @@
 {
-  "name": "star-admin-angular",
-  "version": "0.0.0",
+  "name": "ngx-security-starter",
+  "version": "1.0",
+  "description": "A full implementation of the heloufir/security-starter with an Angular 7+ front-end implementation, with a laravel 5.8.* server",
+  "keywords": [
+    "angular",
+    "laravel",
+    "laravel-passport",
+    "oauth2",
+    "middleware"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
