@@ -117,4 +117,10 @@ The sample user credentials are:
 
 This starter application use the **[StarAdmin Angular template](https://github.com/BootstrapDash/StarAdmin-Free-Angular-Admin-Template)**, it's a beautiful template to start your project with, you can check the link to have more information about it!
 
+## Releases
+
+| Release  | Description |
+| ------------- | ------------- |
+| **1.0**  | First stable version: Initial version  |
+
 # Happy coding!
