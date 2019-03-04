@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dff179388ec0dc41732fb684f958891",
+    "content-hash": "61ca7e2acff15e8e242d8c4ee803cd93",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -774,16 +774,16 @@
         },
         {
             "name": "heloufir/security-starter",
-            "version": "1.3",
+            "version": "1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heloufir/security-starter.git",
-                "reference": "9b1e7921807ae4b4a86bdd340628b18925e37356"
+                "reference": "c3a6de888cb6e6e60672b1c2be2d86fa1bc557e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/9b1e7921807ae4b4a86bdd340628b18925e37356",
-                "reference": "9b1e7921807ae4b4a86bdd340628b18925e37356",
+                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/c3a6de888cb6e6e60672b1c2be2d86fa1bc557e8",
+                "reference": "c3a6de888cb6e6e60672b1c2be2d86fa1bc557e8",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 }
             ],
             "description": "Seucirty starter is a full implementation of laravel/passport and heloufir/simple-passport, containing all the implementations of the authentication and forgot password systems, which allows you to start your project from a good foundation, and only worry about the business logic of your application.",
-            "time": "2019-03-01T22:13:54+00:00"
+            "time": "2019-03-04T20:35:02+00:00"
         },
         {
             "name": "heloufir/simple-passport",
