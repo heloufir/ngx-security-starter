@@ -21,6 +21,9 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
+    <li class="nav-item nav-item-header">
+      <span class="menu-title">Security</span>
+    </li>
     <li class="nav-item">
       <a *ngIf="hasRole('ROLE_USERS')" class="nav-link" [routerLink]="['/security/users']" routerLinkActive="active">
         <i class="menu-icon mdi mdi-account"></i>
