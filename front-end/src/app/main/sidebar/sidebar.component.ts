@@ -27,6 +27,13 @@ export class SidebarComponent implements OnInit {
    */
   ngOnInit(): void { }
 
+  /**
+   * Check if logged user has an authority based on a String
+   * 
+   * @param role The authority's code
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
   hasRole(role: string): Boolean {
     return this.jwtHelper.hasRole(role);
   }
