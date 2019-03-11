@@ -88,11 +88,21 @@ Now you can use the database seeder provided by the starter project to insert sa
   php artisan db:seed
 ```
 
+**4. Configure Laravel/Passport client into the front-end application**
+
+Before you can use the application you need to configure your laravel/passport client token into you front-end application.
+To do it, follow the next steps:
+
+* Go to **~\RepositoryPath\front-end\src\app\services\security\authentication.service.ts**
+* Change the variables `CLIENT_ID` and `CLIENT_SECRET` with your newly created clients that you can find in the table **oauth_clients**
+
+> You need to choose the **oauth client token** that is 
+
 ## Serve & use
 
 From here you can serve the starter application and use the sample user created by the database seeders.
 
-> Serve the starter back-end
+> Serve the starter back-end that have **password_client = true**
 
 ```
   cd ~\RepositoryPath
