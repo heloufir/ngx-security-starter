@@ -58,6 +58,12 @@ Create the `.env` file in the **back-end** root path, this file needs to have th
 
 > You need to execute `php artisan config:cache` to update the laravel application cache to recognize the new environement variables
 
+> **Laravel/Passport** configuration
+
+```
+  php artisan passport:install
+```
+
 **3. Install front-end dependencies**
 
 ```
