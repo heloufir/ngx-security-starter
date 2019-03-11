@@ -15,6 +15,9 @@ import { Role } from '@models/role.model';
 // Application constants
 import { constants } from '@env/constants';
 
+// JWT helper service
+import { JwtHelperService } from '@services/security/jwt-helper.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -44,6 +47,7 @@ export class DashboardComponent implements OnInit {
    * @param roleService The role service
    * @param userService The user service
    * @param titleService The title service
+   * @param jwtHelper The jwt helper service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -51,7 +55,8 @@ export class DashboardComponent implements OnInit {
     private profileService: ProfileService,
     private roleService: RoleService,
     private userService: UserService,
-    titleService: Title
+    titleService: Title,
+    public jwtHelper: JwtHelperService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Dashboard');
@@ -111,6 +116,17 @@ export class DashboardComponent implements OnInit {
     }).subscribe((res: PartialList<Role>) => {
       this.usersStatistics = res.count;
     });
+  }
+
+  /**
+   * Check if logged user has an authority based on a String
+   * 
+   * @param role The authority's code
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  hasRole(role: string): Boolean {
+    return this.jwtHelper.hasRole(role);
   }
 
 }

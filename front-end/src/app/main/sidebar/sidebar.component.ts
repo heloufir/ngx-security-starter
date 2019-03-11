@@ -1,5 +1,7 @@
 // Angular modules
 import { Component, OnInit } from '@angular/core';
+
+// JWT helper service
 import { JwtHelperService } from '@services/security/jwt-helper.service';
 
 @Component({
