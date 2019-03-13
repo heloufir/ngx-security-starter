@@ -164,11 +164,11 @@
       <!-- ./Designation field validations container -->
 
       <!-- Roles checkboxes -->
+      <h3>Role(s)</h3>
       <ng-container
         *ngFor="let role of roles">
         <div class="row">
           <div class="col-12">
-            <h3>Role(s)</h3>
             <mat-checkbox
               color="primary"
               (change)="selectRole(role)"
