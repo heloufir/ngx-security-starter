@@ -54,7 +54,7 @@
                 </td>
               </tr>
 
-              <tr *ngIf="loading && data && !data.data.length">
+              <tr *ngIf="!loading && data && !data.data.length">
                 <td colspan="7" class="text-center loading-data">
                   No profiles created yet!
                 </td>
