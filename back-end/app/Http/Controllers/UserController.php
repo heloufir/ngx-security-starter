@@ -125,8 +125,7 @@ class UserController extends Controller
             ],
             'name' => [
                 'required',
-                'max:255',
-                'array'
+                'max:255'
             ],
             'password' => [
                 'confirmed'
