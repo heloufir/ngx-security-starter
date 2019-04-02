@@ -183,4 +183,37 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
+  /**
+   * On select user's image changed event
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  onImageChanged(file): void {
+    this.selectedUser.picture = file;
+    if (this.selectedUser && this.selectedUser.picture && this.selectedUser.picture instanceof File) {
+      this.previewImage(this.selectedUser.picture);
+    } else {
+      this.picturePreview = 'assets/images/faces/avatar.png';
+    }
+  }
+
+  /**
+   * Build an image preview from the selected file
+   * 
+   * @param file The file selected by the user
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  private previewImage(file: File): void {
+    if (file.type.match(/image\/*/) == null) {
+      this.picturePreview = 'assets/images/faces/avatar.png';
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.picturePreview = reader.result;
+      };
+    }
+  }
+
 }
