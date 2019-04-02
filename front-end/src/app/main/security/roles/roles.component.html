@@ -1,9 +1,9 @@
 <!-- Breadcrumb -->
 <nav>
   <ol class="breadcrumb breadcrumb-custom">
-    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
-    <li class="breadcrumb-item"><a>Security</a></li>
-    <li class="breadcrumb-item active"><span>Manage roles</span></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">{{ 'ROLES.BREAD_CRUMBS.HOME' | translate }}</a></li>
+    <li class="breadcrumb-item"><a>{{ 'ROLES.BREAD_CRUMBS.SECURITY' | translate }}</a></li>
+    <li class="breadcrumb-item active"><span>{{ 'ROLES.BREAD_CRUMBS.ROLES' | translate }}</span></li>
   </ol>
 </nav>
 <!-- ./Breadcrumb -->
@@ -18,8 +18,8 @@
 
         <!-- Page title -->
         <h4 class="card-title">
-          Roles list
-          <a class="btn btn-sm btn-primary float-right" (click)="initSave(saveModal)"><i class="mdi mdi-plus"></i> Add new role</a>
+            {{ 'ROLES.CONTENT.TITLE' | translate }}
+          <a class="btn btn-sm btn-primary float-right" (click)="initSave(saveModal)"><i class="mdi mdi-plus"></i> {{ 'ROLES.CONTENT.BUTTONS.ADD' | translate }}</a>
         </h4>
         <!-- ./Page title -->
 
@@ -31,12 +31,11 @@
             <thead>
 
               <tr>
-                <th>#</th>
-                <th>Code</th>
-                <th>Designation</th>
-                <th>Creation date</th>
-                <th>Last update</th>
-                <th>Actions</th>
+                <th>{{ 'ROLES.CONTENT.DATATABLE.CODE' | translate }}</th>
+                <th>{{ 'ROLES.CONTENT.DATATABLE.DESIGNATION' | translate }}</th>
+                <th>{{ 'ROLES.CONTENT.DATATABLE.CREATED_AT' | translate }}</th>
+                <th>{{ 'ROLES.CONTENT.DATATABLE.UPDATED_AT' | translate }}</th>
+                <th>{{ 'ROLES.CONTENT.DATATABLE.ACTIONS' | translate }}</th>
               </tr>
 
             </thead>
@@ -46,13 +45,13 @@
               <tr *ngIf="loading">
                 <td colspan="6" class="text-center loading-data">
                   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-                  Loading data.. Please wait
+                  {{ 'ROLES.CONTENT.DATATABLE.LOADING' | translate }}
                 </td>
               </tr>
 
               <tr *ngIf="!loading && data && !data.data.length">
                 <td colspan="6" class="text-center loading-data">
-                  No roles created yet!
+                  {{ 'ROLES.CONTENT.DATATABLE.NO_DATA' | translate }}
                 </td>
               </tr>
 
@@ -106,7 +105,7 @@
   <!-- Modal header -->
   <div class="modal-header">
     <h4 class="modal-title">
-      {{ selectedRole.id ? ('Update role: ' + selectedRole.designation) : 'Create new role' }}</h4>
+      {{ selectedRole.id ? (('ROLES.CONTENT.MODAL.TITLE.UPDATE' | translate) + selectedRole.designation) : ('ROLES.CONTENT.MODAL.TITLE.CREATE' | translate) }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="close(modal)">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -120,7 +119,7 @@
 
       <!-- Code field -->
       <div class="form-group">
-        <label for="code">Code</label>
+        <label for="code">{{ 'ROLES.CONTENT.FIELDS.CODE' | translate }}</label>
         <input type="text" class="form-control" id="code" formControlName="code"
           [class.has-error]="form.get('code').dirty && form.get('code').invalid" />
       </div>
@@ -131,11 +130,11 @@
         <div class="col-12">
           <div class="alert alert-danger alert-transparent-left" role="alert"
             *ngIf="form.get('code').dirty && form.controls['code'].hasError('required')">
-            The code is required
+            {{ 'ROLES.CONTENT.ERRORS.CODE.REQUIRED' | translate }}
           </div>
           <div class="alert alert-danger alert-transparent-left" role="alert"
             *ngIf="form.get('code').dirty && form.get('code').hasError('maxLength')">
-            The code must be less than 255 characters
+            {{ 'ROLES.CONTENT.ERRORS.CODE.LENGTH' | translate }}
           </div>
         </div>
       </div>
@@ -143,7 +142,7 @@
 
       <!-- Designation field -->
       <div class="form-group">
-        <label for="designation">Designation</label>
+        <label for="designation">{{ 'ROLES.CONTENT.FIELDS.DESIGNATION' | translate }}</label>
         <input type="text" class="form-control" id="designation" formControlName="designation"
           [class.has-error]="form.get('designation').dirty && form.get('designation').invalid" />
       </div>
@@ -154,11 +153,11 @@
         <div class="col-12">
           <div class="alert alert-danger alert-transparent-left" role="alert"
             *ngIf="form.get('designation').dirty && form.controls['designation'].hasError('required')">
-            The designation is required
+            {{ 'ROLES.CONTENT.ERRORS.DESIGNATION.REQUIRED' | translate }}
           </div>
           <div class="alert alert-danger alert-transparent-left" role="alert"
             *ngIf="form.get('designation').dirty && form.get('designation').hasError('maxLength')">
-            The designation must be less than 255 characters
+            {{ 'ROLES.CONTENT.ERRORS.DESIGNATION.LENGTH' | translate }}
           </div>
         </div>
       </div>
@@ -172,7 +171,7 @@
   <!-- Modal footer -->
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="save(modal)"
-      [disabled]="form.invalid || savingRole">Save</button>
+      [disabled]="form.invalid || savingRole">{{ 'ROLES.CONTENT.BUTTONS.SAVE' | translate }}</button>
   </div>
   <!-- ./Modal footer -->
 
@@ -184,7 +183,7 @@
 
   <!-- Modal header -->
   <div class="modal-header">
-    <h4 class="modal-title">Delete role</h4>
+    <h4 class="modal-title">{{ 'ROLES.CONTENT.MODAL.TITLE.DELETE' | translate }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="close(modal)">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -193,14 +192,14 @@
 
   <!-- Modal body -->
   <div class="modal-body">
-    <p>Are you sure you want to delete this role?</p>
+    <p>{{ 'ROLES.CONTENT.MODAL.DESCRIPTION.DELETE' | translate }}</p>
   </div>
   <!-- ./Modal body -->
 
   <!-- Modal footer -->
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" [disabled]="deletingRole"
-      (click)="delete(modal)">Delete</button>
+      (click)="delete(modal)">{{ 'ROLES.CONTENT.BUTTONS.DELETE' | translate }}</button>
   </div>
   <!-- ./Modal footer -->
 

@@ -24,6 +24,9 @@ import { InterceptorService } from '@services/security/guards/interceptor.servic
 // Toastr module
 import { ToastrModule } from 'ngx-toastr';
 
+// Translate module
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   declarations: [
     // Main navigation bar component
@@ -53,7 +56,9 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    // Translate module
+    TranslateModule.forRoot()
   ],
   providers: [
     // The HttpClient requests interceptor

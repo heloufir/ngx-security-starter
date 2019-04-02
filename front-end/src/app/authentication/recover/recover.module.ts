@@ -13,6 +13,9 @@ import { MatProgressSpinnerModule } from '@angular/material';
 // Routes guards
 import { NoAuthGuard } from '@services/security/guards/no-auth.guard';
 
+// Shared module
+import { SharedModule } from '@app/core/modules/shared.module';
+
 // Module routes
 const routes: Routes = [
   {
@@ -36,7 +39,9 @@ const routes: Routes = [
     // Application routes injection into the application forChild() routes
     RouterModule.forChild(routes),
     // Material modules
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    // Shared module
+    SharedModule
   ]
 })
 export class RecoverModule { }

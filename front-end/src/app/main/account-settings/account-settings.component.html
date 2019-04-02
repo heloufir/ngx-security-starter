@@ -1,8 +1,8 @@
 <!-- Breadcrumb -->
 <nav>
   <ol class="breadcrumb breadcrumb-custom">
-    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
-    <li class="breadcrumb-item active"><span>Account settings</span></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">{{ 'ACCOUNT_SETTINGS.BREAD_CRUMBS.HOME' | translate }}</a></li>
+    <li class="breadcrumb-item active"><span>{{ 'ACCOUNT_SETTINGS.BREAD_CRUMBS.ACCOUNT_SETTINGS' | translate }}</span></li>
   </ol>
 </nav>
 <!-- ./Breadcrumb -->
@@ -19,7 +19,7 @@
 
         <!-- Page title -->
         <h4 class="card-title">
-          My account
+            {{ 'ACCOUNT_SETTINGS.CONTENT.TITLE' | translate }}
         </h4>
         <!-- ./Page title -->
 
@@ -32,11 +32,7 @@
                 <div class="pull-left">
                   <i class="mdi mdi-alert-circle info-icon"></i> 
                 </div>
-                <div class="pull-right">
-                    Please note that you need to close your session and re-open it again (<em>logout from your account and login again</em>) to let your changes take place.
-                    <br>
-                    <b>All changes are not automatically updated into your current session.</b>
-                </div>
+                <div class="pull-right" [innerHTML]="'ACCOUNT_SETTINGS.CONTENT.NOTE' | translate"></div>
               </div>
             </div>  
           </div>
@@ -64,7 +60,7 @@
                 <div class="col-md-9 col-lg-8 col-sm-12">
                   <!-- Name field -->
                   <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">{{ 'ACCOUNT_SETTINGS.CONTENT.FIELDS.NAME' | translate }}</label>
                     <input type="text" class="form-control" id="name" formControlName="name" 
                       [class.has-error]="form.get('name').dirty && form.get('name').invalid" />
                   </div>
@@ -75,11 +71,11 @@
                     <div class="col-12">
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('name').dirty && form.controls['name'].hasError('required')">
-                        The name is required
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.NAME.REQUIRED' | translate }}
                       </div>
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('name').dirty && form.get('name').hasError('maxLength')">
-                        The name must be less than 255 characters
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.NAME.LENGTH' | translate }}
                       </div>
                     </div>
                   </div>
@@ -87,7 +83,7 @@
                   
                   <!-- Email address field -->
                   <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email">{{ 'ACCOUNT_SETTINGS.CONTENT.FIELDS.EMAIL' | translate }}</label>
                     <input type="text" class="form-control" id="email" formControlName="email"
                       [class.has-error]="form.get('email').dirty && form.get('email').invalid" />
                   </div>
@@ -98,11 +94,11 @@
                     <div class="col-12">
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('email').dirty && form.controls['email'].hasError('required')">
-                        The email is required
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.EMAIL.REQUIRED' | translate }}
                       </div>
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('email').dirty && form.get('email').hasError('maxLength')">
-                        The email must be less than 255 characters
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.EMAIL.LENGTH' | translate }}
                       </div>
                     </div>
                   </div>
@@ -110,7 +106,7 @@
             
                   <!-- Password field -->
                   <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">{{ 'ACCOUNT_SETTINGS.CONTENT.FIELDS.PASSWORD' | translate }}</label>
                     <input type="password" class="form-control" id="password" formControlName="password"
                       [class.has-error]="form.get('password').dirty && form.get('password').invalid" />
                   </div>
@@ -121,7 +117,7 @@
                     <div class="col-12">
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('password').dirty && form.controls['password'].hasError('required')">
-                        The password is required
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.PASSWORD.REQUIRED' | translate }}
                       </div>
                     </div>
                   </div>
@@ -129,7 +125,7 @@
             
                   <!-- Password confirmation field -->
                   <div class="form-group">
-                    <label for="password_confirmation">Password confirmation</label>
+                    <label for="password_confirmation">{{ 'ACCOUNT_SETTINGS.CONTENT.FIELDS.PASSWORD_CONFIRMATION' | translate }}</label>
                     <input type="password" class="form-control" id="password_confirmation" formControlName="password_confirmation"
                       [class.has-error]="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid" />
                   </div>
@@ -140,7 +136,7 @@
                     <div class="col-12">
                       <div class="alert alert-danger alert-transparent-left" role="alert"
                         *ngIf="form.get('password_confirmation').dirty && form.controls['password_confirmation'].hasError('required')">
-                        The password confirmation is required
+                        {{ 'ACCOUNT_SETTINGS.CONTENT.ERRORS.PASSWORD_CONFIRMATION.REQUIRED' | translate }}
                       </div>
                     </div>
                   </div>
@@ -151,7 +147,7 @@
 
             </form>
 
-            <button type="button" class="btn btn-outline-dark" (click)="save()" [disabled]="form.invalid || saving">Save</button>
+            <button type="button" class="btn btn-outline-dark" (click)="save()" [disabled]="form.invalid || saving">{{ 'ACCOUNT_SETTINGS.CONTENT.BUTTONS.SAVE' | translate }}</button>
 
           </div>
 

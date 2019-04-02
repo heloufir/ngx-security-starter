@@ -17,6 +17,12 @@ import { constants } from '@env/constants';
 import { error, success, warning } from '@app/core/utils/toastr';
 import { ToastrService } from 'ngx-toastr';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-recover',
   templateUrl: './recover.component.html',
@@ -49,6 +55,8 @@ export class RecoverComponent implements OnInit, OnDestroy {
    * @param _router The router object
    * @param _route The route object
    * @param titleService The title service
+   * @param _translationLoader The translation loader
+   * @param translateService The tarnslate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -59,7 +67,9 @@ export class RecoverComponent implements OnInit, OnDestroy {
     private _toastr: ToastrService,
     private _route: ActivatedRoute,
     private _router: Router,
-    titleService: Title
+    titleService: Title,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Update application layout settings
     this.config.setSettings({
@@ -75,6 +85,8 @@ export class RecoverComponent implements OnInit, OnDestroy {
     }
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Forgot password?');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**
@@ -111,14 +123,14 @@ export class RecoverComponent implements OnInit, OnDestroy {
         this.buildForm();
         this.loading = false;
         this._router.navigate([constants.auth_url]);
-        success('Success!', 'Your password is successfully recovered. Please login to your account using your new password.', this._toastr);
+        success('Success!', 'Your password is successfully recovered. Please login to your account using your new password.', this._toastr, this.translateService);
       }, (err: any) => {
         if (err.status === 403) {
           JSON.parse(err._body).errors.forEach((e: string) => {
-            warning('Error!', e, this._toastr);
+            warning('Error!', e, this._toastr, this.translateService);
           });
         } else {
-          error('Error!', 'An internal error has occured, please contact system administrator.', this._toastr);
+          error('Error!', 'An internal error has occurred, please contact system administrator.', this._toastr, this.translateService);
         }
         this.loading = false;
       });

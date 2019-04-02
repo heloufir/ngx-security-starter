@@ -21,6 +21,9 @@ import {
   MatCheckboxModule 
 } from '@angular/material';
 
+// Shared module
+import { SharedModule } from '@app/core/modules/shared.module';
+
 // Module routes
 const routes: Routes = [
   // Profiles component
@@ -52,7 +55,9 @@ const routes: Routes = [
     // Material modules
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    // Shared module
+    SharedModule
   ]
 })
 export class ProfilesModule { }

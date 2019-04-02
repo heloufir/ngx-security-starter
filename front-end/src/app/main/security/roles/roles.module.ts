@@ -17,6 +17,9 @@ import { RoleGuard } from '@services/security/guards/role.guard';
 // Material modules
 import { MatProgressBarModule } from '@angular/material';
 
+// Shared module
+import { SharedModule } from '@app/core/modules/shared.module';
+
 // Module routes
 const routes: Routes = [
   // Roles component
@@ -46,7 +49,9 @@ const routes: Routes = [
     // Router module
     RouterModule.forChild(routes),
     // Material modules
-    MatProgressBarModule
+    MatProgressBarModule,
+    // Shared module
+    SharedModule
   ]
 })
 export class RolesModule { }

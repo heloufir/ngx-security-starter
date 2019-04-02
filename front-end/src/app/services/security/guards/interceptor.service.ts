@@ -49,7 +49,8 @@ export class InterceptorService implements HttpInterceptor {
   private applyCredentials(req: HttpRequest<any>): HttpRequest<any> {
     return req.clone({
       setHeaders: {
-        Authorization: `Bearer ${localStorage.getItem(constants.access_token)}`
+        Authorization: `Bearer ${localStorage.getItem(constants.access_token)}`,
+        Language: localStorage.getItem(constants.ls_lang) ? localStorage.getItem(constants.ls_lang) : 'en'
       }
     });
   }
