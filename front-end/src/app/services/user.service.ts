@@ -28,9 +28,27 @@ export class UserService extends CrudService<User> {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
-    _http: HttpClient
+    private __http: HttpClient
   ) {
-    super(_http);
+    super(__http);
     this.setUrl('users');
+  }
+
+  /**
+   * @override
+   * Save the item into database
+   * 
+   * @param model The item to save
+   * @param update A flag if set to TRUE it means it's an update, otherwise it's a save
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  public save(model: any, update?: boolean): any {
+    this.options.params = undefined;
+    if (update) {
+      return this.__http.post<User>(this.url + '/' + model.get('id'), model, this.options);
+    } else {
+      return this.__http.post<User>(this.url, model, this.options);
+    }
   }
 }

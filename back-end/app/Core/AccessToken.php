@@ -45,6 +45,7 @@ class AccessToken extends PassportAccessToken
             ->set('roles', $extra->get('roles'))
             ->set('name', $extra->get('name'))
             ->set('email', $extra->get('email'))
+            ->set('picture', $extra->get('picture'))
             ->sign(new Sha256(), new Key($privateKey->getKeyPath(), $privateKey->getPassPhrase()))
             ->getToken();
     }
@@ -63,7 +64,8 @@ class AccessToken extends PassportAccessToken
         return collect([
             'roles' => $user->roles(),
             'name' => $user->name,
-            'email' => $user->email
+            'email' => $user->email,
+            'picture' => $user->picture
         ]);
     }
 

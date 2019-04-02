@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\FileHelper;
 use App\Rules\UserExists;
 use App\User;
 use Heloufir\SecurityStarter\Core\Paginator;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    use Paginator;
+    use Paginator, FileHelper;
 
     /**
      * Display a listing of the resource.
@@ -69,6 +70,9 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->name = $request->get('name');
         $user->password = bcrypt($request->get('password'));
+        if ($request->has('picture')) {
+            $user->picture = $this->upload($request->picture, storage_path('uploads/users/avatars'));
+        }
         $user->save();
         if ($request->has('profiles')) {
             foreach ($request->get('profiles') as $profile) {
@@ -127,7 +131,7 @@ class UserController extends Controller
                 'confirmed'
             ],
             'profiles' => [
-                'array'
+                'string'
             ]
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -140,12 +144,19 @@ class UserController extends Controller
         if ($request->get('password')) {
             $user->password = bcrypt($request->get('password'));
         }
+        if ($request->has('picture')) {
+            if ($user->picture != null) {
+                unlink(storage_path('uploads/users/avatars') . '/' . $user->picture);
+            }
+            $user->picture = $this->upload($request->picture, storage_path('uploads/users/avatars'));
+        }
         $user->save();
         DB::table(config('security-starter.tables.associations.user_profiles'))
             ->where('refUser', $id)
             ->delete();
         if ($request->has('profiles')) {
-            foreach ($request->get('profiles') as $profile) {
+            $profiles = explode(',', $request->get('profiles'));
+            foreach ($profiles as $profile) {
                 DB::table(config('security-starter.tables.associations.user_profiles'))
                     ->insert([
                         'refUser' => $user->id,
@@ -184,5 +195,23 @@ class UserController extends Controller
             ->where('refUser', $id)
             ->delete();
         return response()->json(User::where('id', $id)->delete(), 200);
+    }
+
+    /**
+     * Download the users picture
+     *
+     * @param int $id The user's id
+     *
+     * @return JsonResponse|null|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     *
+     * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+     */
+    public function picture(int $id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($user == null || $user->picture == null) {
+            return null;
+        }
+        return $this->download(storage_path('uploads/users/avatars'), $user->picture);
     }
 }

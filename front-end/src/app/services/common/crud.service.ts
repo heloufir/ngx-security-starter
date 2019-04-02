@@ -81,6 +81,7 @@ export class CrudService<T> {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   public findById(id: number): any {
+    this.options.params = undefined;
     return this._http.get<T>(this.url + '/' + id, this.options);
   }
 
@@ -93,6 +94,7 @@ export class CrudService<T> {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   public save(model: any, update?: boolean): any {
+    this.options.params = undefined;
     if (update) {
       return this._http.put<T>(this.url + '/' + model.id, model, this.options);
     } else {
@@ -108,6 +110,7 @@ export class CrudService<T> {
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   public delete(model: any): any {
+    this.options.params = undefined;
     return this._http.delete<T>(this.url + '/' + model.id, this.options);
   }
 

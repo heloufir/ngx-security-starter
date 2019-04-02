@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // Application constants
 import { constants } from '@env/constants';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-users',
@@ -66,6 +67,11 @@ export class UsersComponent implements OnInit {
    * User object to save
    */
   selectedUser: User;
+
+  /**
+   * The selected picture preview
+   */
+  picturePreview: any;
 
   /**
    * Component constructor
@@ -163,6 +169,11 @@ export class UsersComponent implements OnInit {
     } else {
       this.selectedUser = new User();
     }
+    if (!this.selectedUser.picture) {
+      this.picturePreview = 'assets/images/faces/avatar.png';
+    } else {
+      this.picturePreview = environment.web_url + 'users/picture/' + this.selectedUser.id + '?v=' + Math.random();
+    }
     // Initialize the form group object
     this.form = this._fb.group({
       email: [
@@ -221,15 +232,19 @@ export class UsersComponent implements OnInit {
     // Check if the form is valid
     if (this.form.valid) {
       this.savingUser = true;
+      // Construct form data
+      const formData = new FormData();
+      if (this.selectedUser.picture instanceof File) {
+        formData.append('picture', this.selectedUser.picture);
+      }
+      formData.append('id', this.selectedUser.id + '');
+      formData.append('name', this.form.get('name').value);
+      formData.append('email', this.form.get('email').value);
+      formData.append('password', this.form.get('password').value);
+      formData.append('password_confirmation', this.form.get('password_confirmation').value);
+      formData.append('profiles', this.selectedUser.profiles.map((p: Profile) => p.id) + '');
       // Send save / update request to the service
-      this.userService.save({
-        id: this.selectedUser.id,
-        email: this.form.get('email').value,
-        name: this.form.get('name').value,
-        password: this.form.get('password').value,
-        password_confirmation: this.form.get('password_confirmation').value,
-        profiles: this.selectedUser.profiles.map((r: Profile) => r.id)
-      }, this.selectedUser.id ? true : false).subscribe((res: User) => {
+      this.userService.save(formData, this.selectedUser.id ? true : false).subscribe((res: User) => {
         // Show success alert
         success('Success!', 'The user is successfully saved.', this._toastr);
         this.savingUser = false;
@@ -248,6 +263,39 @@ export class UsersComponent implements OnInit {
         }
         this.savingUser = false;
       });
+    }
+  }
+
+  /**
+   * On select user's image changed event
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  onImageChanged(file): void {
+    this.selectedUser.picture = file;
+    if (this.selectedUser && this.selectedUser.picture && this.selectedUser.picture instanceof File) {
+      this.previewImage(this.selectedUser.picture);
+    } else {
+      this.picturePreview = 'assets/images/faces/avatar.png';
+    }
+  }
+
+  /**
+   * Build an image preview from the selected file
+   * 
+   * @param file The file selected by the user
+   * 
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  private previewImage(file: File): void {
+    if (file.type.match(/image\/*/) == null) {
+      this.picturePreview = 'assets/images/faces/avatar.png';
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.picturePreview = reader.result;
+      };
     }
   }
 

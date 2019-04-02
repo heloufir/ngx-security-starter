@@ -18,6 +18,11 @@ export class NavbarComponent implements OnInit {
    * Sidebar opened indicator
    */
   public sidebarOpened = false;
+  
+  /**
+   * User's picture version
+   */
+  pictureVersion = Math.random();
 
   /**
    * Component constructor

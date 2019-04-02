@@ -117,6 +117,18 @@
 
     <form [formGroup]="form" *ngIf="!loadingProfiles">
 
+      <!-- Picture field -->
+      <div class="img-uploader">
+        <div class="img-preview">
+          <img [src]="picturePreview" />
+        </div>
+        <div class="img-input">
+          <input type="file" id="image" #file (change)="onImageChanged(file.files[0])" />
+          <label for="image"><i class="mdi mdi-cloud-upload"></i></label>
+        </div>
+      </div>
+      <!-- ./Picture field -->
+
       <!-- Name field -->
       <div class="form-group">
         <label for="name">Name</label>

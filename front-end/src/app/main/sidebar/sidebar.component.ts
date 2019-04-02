@@ -10,6 +10,11 @@ import { JwtHelperService } from '@services/security/jwt-helper.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+  
+  /**
+   * User's picture version
+   */
+  pictureVersion = Math.random();
 
   /**
    * Component constructor

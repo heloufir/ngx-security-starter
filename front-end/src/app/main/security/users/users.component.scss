@@ -9,3 +9,39 @@
     float: none;
     margin: 0 auto;
 }
+
+.img-uploader {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    .img-preview {
+        width: 120px;
+        height: 120px;
+        float: none;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: rgba(119, 119, 119, .05);
+        border: 1px dashed rgba(119, 119, 119, .2);
+        border-radius: 50%;
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            box-shadow: 1px 1px 5px rgba(119, 119, 119, .2);
+        }
+    }
+    .img-input {
+        width: 100%;
+        float: left;
+        text-align: center;
+        input {
+            display: none;
+        }
+        label {
+            font-size: 30px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}

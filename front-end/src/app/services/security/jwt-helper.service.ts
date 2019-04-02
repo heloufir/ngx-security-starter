@@ -1,6 +1,7 @@
 // Angular modules
 import { Injectable } from '@angular/core';
 import { constants } from '@env/constants';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,21 @@ export class JwtHelperService {
     } else {
       const decoded = this.decode(token);
       return (decoded === null) ? null : decoded.sub;
+    }
+  }
+
+  /**
+   * Get the authenticated user's picture from the access token
+   *
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
+   */
+  picture(): string {
+    const token = localStorage.getItem(constants.access_token);
+    if (token === null || token === undefined) {
+      return null;
+    } else {
+      const decoded = this.decode(token);
+      return (decoded === null || !decoded.picture) ? null : environment.web_url + 'users/picture/' + decoded.sub;
     }
   }
 

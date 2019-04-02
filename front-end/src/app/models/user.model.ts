@@ -53,6 +53,11 @@ export class User {
     profiles: Array<Profile>;
 
     /**
+     * The user's picture
+     */
+    picture: any;
+
+    /**
      * Model constructor
      *
      * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
