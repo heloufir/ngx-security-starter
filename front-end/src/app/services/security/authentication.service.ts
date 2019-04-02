@@ -32,7 +32,7 @@ export class AuthenticationService {
   /**
    * The Oauth client secret
    */
-  CLIENT_SECRET = 'FTVgbmGmO2mE86aogjPFV3bewf7DJTr26UYjN6zh';
+  CLIENT_SECRET = 'EjnmFqrFtN8Byd4LFoopZ1cjs4wOTuAn9QytebHl';
 
   /**
    * Service constructor
