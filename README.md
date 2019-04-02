@@ -141,5 +141,6 @@ This starter application use the **[StarAdmin Angular template](https://github.c
 | **1.1**  | Upgrade **heloufir/security-starter** version (Bug-fixing)  |
 | **1.2**  | Upgrade the front-end dependencies & Add user's image feature |
 | **1.3**  | Add account settings page |
+| **1.4** | Implement translation system |
 
 # Happy coding!
