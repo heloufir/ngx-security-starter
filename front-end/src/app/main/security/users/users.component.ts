@@ -23,6 +23,12 @@ import { ToastrService } from 'ngx-toastr';
 import { constants } from '@env/constants';
 import { environment } from '@env/environment';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -82,6 +88,8 @@ export class UsersComponent implements OnInit {
    * @param _fb The form builder object
    * @param _toastr The toastr service
    * @param titleService The title service
+   * @param _translationLoader The translation loader
+   * @param translateService The translate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -91,10 +99,14 @@ export class UsersComponent implements OnInit {
     private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    titleService: Title
+    titleService: Title,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Security - Users management');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**
@@ -248,7 +260,7 @@ export class UsersComponent implements OnInit {
       // Send save / update request to the service
       this.userService.save(formData, this.selectedUser.id ? true : false).subscribe((res: User) => {
         // Show success alert
-        success('Success!', 'The user is successfully saved.', this._toastr);
+        success('USERS.TOASTS.TITLE.SUCCESS', 'USERS.TOASTS.DESCRIPTION.SAVED', this._toastr, this.translateService);
         this.savingUser = false;
         // Close user save modal
         this.close(modal, true);
@@ -257,11 +269,11 @@ export class UsersComponent implements OnInit {
         if (err.status === 403) {
           // Show an error for each form validations errors list
           err.error.forEach((e: string) => {
-            warning('Warning!', e, this._toastr);
+            warning('USERS.TOASTS.TITLE.WARNING', e, this._toastr, this.translateService);
           });
         } else {
           // Else, show an internal server error alert
-          error('Error!', 'An error has occured when saving the user, please contact system administrator.', this._toastr);
+          error('USERS.TOASTS.TITLE.ERROR', 'USERS.TOASTS.DESCRIPTION.ERROR', this._toastr, this.translateService);
         }
         this.savingUser = false;
       });

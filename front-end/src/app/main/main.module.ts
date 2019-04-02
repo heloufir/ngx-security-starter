@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
+// Shared module
+import { SharedModule } from '@app/core/modules/shared.module';
+
 // Module routes
 const routes: Routes = [
   // Dashboard module
@@ -33,7 +36,9 @@ const routes: Routes = [
     // Angular modules
     CommonModule,
     // Router module
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    // Shared module
+    SharedModule
   ]
 })
 export class MainModule { }

@@ -5,7 +5,7 @@
                 <div class="clearfix">
                     <div class="float-left"><i class="mdi mdi-account text-primary icon-lg"></i></div>
                     <div class="float-right">
-                        <p class="mb-0 text-right">Total users</p>
+                        <p class="mb-0 text-right">{{ 'DASHBOARD.STATISTICS.USERS.TITLE' | translate }}</p>
                         <div class="fluid-container">
                             <h3 class="font-weight-medium text-right mb-0">
                                 <ng-container *ngIf="usersStatistics === null">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-muted mt-3 mb-0"><i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i> The total number of users</p>
+                <p class="text-muted mt-3 mb-0"><i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i> {{ 'DASHBOARD.STATISTICS.USERS.DESCRIPTION' | translate }}</p>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <div class="clearfix">
                     <div class="float-left"><i class="mdi mdi-security text-danger icon-lg"></i></div>
                     <div class="float-right">
-                        <p class="mb-0 text-right">Total profiles</p>
+                        <p class="mb-0 text-right">{{ 'DASHBOARD.STATISTICS.PROFILES.TITLE' | translate }}</p>
                         <div class="fluid-container">
                             <h3 class="font-weight-medium text-right mb-0">
                                 <ng-container *ngIf="profilesStatistics === null">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-muted mt-3 mb-0"><i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i> The total number of profiles</p>
+                <p class="text-muted mt-3 mb-0"><i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i> {{ 'DASHBOARD.STATISTICS.PROFILES.DESCRIPTION' | translate }}</p>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
                 <div class="clearfix">
                     <div class="float-left"><i class="mdi mdi-security-network text-warning icon-lg"></i></div>
                     <div class="float-right">
-                        <p class="mb-0 text-right">Total roles</p>
+                        <p class="mb-0 text-right">{{ 'DASHBOARD.STATISTICS.ROLES.TITLE' | translate }}</p>
                         <div class="fluid-container">
                             <h3 class="font-weight-medium text-right mb-0">
                                 <ng-container *ngIf="rolesStatistics === null">
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <p class="text-muted mt-3 mb-0"><i aria-hidden="true" class="mdi mdi-alert-octagon mr-1"></i>
-                    The total number of roles </p>
+                    {{ 'DASHBOARD.STATISTICS.ROLES.DESCRIPTION' | translate }} </p>
             </div>
         </div>
     </div>

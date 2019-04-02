@@ -1,5 +1,6 @@
 // Toastr service
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Show a success toastr
@@ -10,8 +11,9 @@ import { ToastrService } from 'ngx-toastr';
  * 
  * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
  */
-export function success(title: string, content: string, toastr: ToastrService): void {
-    toastr.success(content, title);
+export function success(title: string, content: string, toastr: ToastrService, translate: TranslateService): void {
+    translate.stream([content, title])
+        .subscribe((t: any) => toastr.success(t[content], t[title]));
 }
 
 /**
@@ -23,8 +25,9 @@ export function success(title: string, content: string, toastr: ToastrService): 
  *
  * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
  */
-export function error(title: string, content: string, toastr: ToastrService): void {
-    toastr.error(content, title);
+export function error(title: string, content: string, toastr: ToastrService, translate: TranslateService): void {
+    translate.stream([content, title])
+        .subscribe((t: any) => toastr.error(t[content], t[title]));
 }
 
 /**
@@ -36,8 +39,9 @@ export function error(title: string, content: string, toastr: ToastrService): vo
  *
  * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
  */
-export function warning(title: string, content: string, toastr: ToastrService): void {
-    toastr.warning(content, title);
+export function warning(title: string, content: string, toastr: ToastrService, translate: TranslateService): void {
+    translate.stream([content, title])
+        .subscribe((t: any) => toastr.warning(t[content], t[title]));
 }
 
 /**
@@ -49,6 +53,7 @@ export function warning(title: string, content: string, toastr: ToastrService): 
  *
  * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
  */
-export function info(title: string, content: string, toastr: ToastrService): void {
-    toastr.info(content, title);
+export function info(title: string, content: string, toastr: ToastrService, translate: TranslateService): void {
+    translate.stream([content, title])
+        .subscribe((t: any) => toastr.info(t[content], t[title]));
 }

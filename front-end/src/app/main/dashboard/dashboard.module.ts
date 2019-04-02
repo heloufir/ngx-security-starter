@@ -15,6 +15,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Material modules
 import { MatProgressSpinnerModule } from '@angular/material';
 
+// Shared module
+import { SharedModule } from '@app/core/modules/shared.module';
+
 // Module routes
 const routes: Routes = [
   // Dashboard component
@@ -38,7 +41,9 @@ const routes: Routes = [
     // Router module
     RouterModule.forChild(routes),
     // Material modules
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    // Shared module
+    SharedModule
   ]
 })
 export class DashboardModule { }

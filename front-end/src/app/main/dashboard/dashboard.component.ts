@@ -18,6 +18,11 @@ import { constants } from '@env/constants';
 // JWT helper service
 import { JwtHelperService } from '@services/security/jwt-helper.service';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -48,6 +53,7 @@ export class DashboardComponent implements OnInit {
    * @param userService The user service
    * @param titleService The title service
    * @param jwtHelper The jwt helper service
+   * @param _translationLoader The translation loader
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -56,10 +62,13 @@ export class DashboardComponent implements OnInit {
     private roleService: RoleService,
     private userService: UserService,
     titleService: Title,
-    public jwtHelper: JwtHelperService
+    public jwtHelper: JwtHelperService,
+    private _translationLoader: TranslationLoaderService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Dashboard');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**

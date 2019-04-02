@@ -22,6 +22,12 @@ import { ToastrService } from 'ngx-toastr';
 // Application constants
 import { constants } from '@env/constants';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-profiles',
   templateUrl: './profiles.component.html',
@@ -76,6 +82,8 @@ export class ProfilesComponent implements OnInit {
    * @param _fb The form builder object
    * @param _toastr The toastr service
    * @param titleService The title service
+   * @param _translationLoader The translation loader
+   * @param translateService The translate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -85,10 +93,14 @@ export class ProfilesComponent implements OnInit {
     private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    titleService: Title
+    titleService: Title,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Security - Profiles management');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**
@@ -221,7 +233,7 @@ export class ProfilesComponent implements OnInit {
         roles: this.selectedProfile.roles.map((r: Role) => r.id)
       }, this.selectedProfile.id ? true : false).subscribe((res: Profile) => {
         // Show success alert
-        success('Success!', 'The profile is successfully saved.', this._toastr);
+        success('PROFILES.TOASTS.TITLE.SUCCESS', 'PROFILES.TOASTS.DESCRIPTION.SAVED', this._toastr, this.translateService);
         this.savingProfile = false;
         // Close profile save modal
         this.close(modal, true);
@@ -230,11 +242,11 @@ export class ProfilesComponent implements OnInit {
         if (err.status === 403) {
           // Show an error for each form validations errors list
           err.error.forEach((e: string) => {
-            warning('Warning!', e, this._toastr);
+            warning('PROFILES.TOASTS.TITLE.WARNING', e, this._toastr, this.translateService);
           });
         } else {
           // Else, show an internal server error alert
-          error('Error!', 'An error has occured when saving the profile, please contact system administrator.', this._toastr);
+          error('PROFILES.TOASTS.TITLE.ERROR', 'PROFILES.TOASTS.DESCRIPTION.ERROR', this._toastr, this.translateService);
         }
         this.savingProfile = false;
       });
