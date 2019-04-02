@@ -15,6 +15,11 @@ const routes: Routes = [
     path: 'security', 
     loadChildren: './security/security.module#SecurityModule'
   },
+  // Account settings module
+  { 
+    path: 'account-settings', 
+    loadChildren: './account-settings/account-settings.module#AccountSettingsModule'
+  },
   // Default redirection to dashboard if route is unknown
   { 
     path: '**', 

@@ -160,6 +160,8 @@ export class UsersComponent implements OnInit {
   /**
    * Initialize the save form group
    * 
+   * @param user The user object
+   * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   initSaveForm(user?: User): void {

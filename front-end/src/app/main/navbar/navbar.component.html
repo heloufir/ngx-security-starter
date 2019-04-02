@@ -16,7 +16,7 @@
           <img class="img-xs rounded-circle" [src]="jwtHelper.picture() + '?v=' + pictureVersion" [alt]="jwtHelper.name()" *ngIf="jwtHelper.picture()">
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">
-          <a class="dropdown-item mt-2">
+          <a class="dropdown-item mt-2" [routerLink]="['/account-settings']">
             <i class="fa fa-cogs"></i> Account settings
           </a>
           <a class="dropdown-item" (click)="logout()">
