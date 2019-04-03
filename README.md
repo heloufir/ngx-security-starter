@@ -73,18 +73,24 @@ Create the `.env` file in the **back-end** root path, this file needs to have th
 After creating the starter project database into your database server, you need to execute the migration command to install the starter tables into your database server:
 
 ```
+  cd ~\RepositoryPath
+  cd back-end
   php artisan migrate
 ```
 
 Now you can use the database seeder provided by the starter project to insert sample data, so you can use the starter application:
 
 ```
+  cd ~\RepositoryPath
+  cd back-end
   php artisan db:seed
 ```
 
 > **Laravel/Passport** configuration
 
 ```
+  cd ~\RepositoryPath
+  cd back-end
   php artisan passport:install
 ```
 
