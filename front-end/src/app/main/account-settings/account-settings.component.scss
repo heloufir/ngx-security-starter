@@ -1,0 +1,57 @@
+.img-uploader {
+    width: 100%;
+    float: left;
+    padding: 10px;
+    .img-preview {
+        width: 250px;
+        max-width: 100%;
+        float: none;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: rgba(119, 119, 119, .05);
+        border: 1px dashed rgba(119, 119, 119, .2);
+        border-radius: 50%;
+        img {
+            width: 230px;
+            max-width: 100%;
+            border-radius: 50%;
+            box-shadow: 1px 1px 5px rgba(119, 119, 119, .2);
+        }
+    }
+    .img-input {
+        width: 100%;
+        float: left;
+        text-align: center;
+        input {
+            display: none;
+        }
+        label {
+            font-size: 30px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.loading {
+    float: none;
+    margin: 0 auto;
+}
+
+.loading-account-data {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.info-icon {
+    float: none;
+    text-align: center;
+    font-size: 30px;
+    margin-top: 10px;
+    display: block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}

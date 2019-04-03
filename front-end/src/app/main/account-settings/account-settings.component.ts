@@ -2,72 +2,55 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 // Application services
 import { UserService } from '@services/user.service';
 import { ProfileService } from '@services/profile.service';
 
-// Application models
-import { PartialList } from '@models/common/partial-list.model';
-import { User } from '@models/user.model';
-import { Profile } from '@models/profile.model';
-
-// Bootstrap modules
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 // Toastr service and utilities
 import { success, error, warning } from '@app/core/utils/toastr';
 import { ToastrService } from 'ngx-toastr';
 
+// Application models
+import { Profile } from '@models/profile.model';
+import { PartialList } from '@models/common/partial-list.model';
+import { User } from '@models/user.model';
+
 // Application constants
 import { constants } from '@env/constants';
 import { environment } from '@env/environment';
+import { JwtHelperService } from '@services/security/jwt-helper.service';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  selector: 'app-account-settings',
+  templateUrl: './account-settings.component.html',
+  styleUrls: ['./account-settings.component.scss']
 })
-export class UsersComponent implements OnInit {
-
-  /**
-   * The users partial list object
-   */
-  data: PartialList<User>;
+export class AccountSettingsComponent implements OnInit {
 
   /**
    * Loading data indicator
    */
-  loading: boolean;
   loadingProfiles: boolean;
-  savingUser: boolean;
-  deletingUser: boolean;
-
-  /**
-   * Current loaded page
-   */
-  page = 1;
-
-  /**
-   * Default page size
-   */
-  size = 10;
+  loading: boolean;
+  saving: boolean;
 
   /**
    * The form group
    */
   form: FormGroup;
-
+  
   /**
    * Profiles list
    */
   profiles: Array<Profile>;
 
   /**
-   * User object to save
+   * The selected user object (account data)
    */
   selectedUser: User;
-
+  
   /**
    * The selected picture preview
    */
@@ -78,62 +61,54 @@ export class UsersComponent implements OnInit {
    * 
    * @param userService The user service
    * @param profileService The profile service
-   * @param modalService The bootstrap modal service
    * @param _fb The form builder object
    * @param _toastr The toastr service
    * @param titleService The title service
+   * @param jwtHelper The JWT helper service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    titleService: Title
+    titleService: Title,
+    private jwtHelper: JwtHelperService,
+    private _router: Router
   ) {
     // Set the page title
-    titleService.setTitle(constants.app_name + ' - Security - Users management');
+    titleService.setTitle(constants.app_name + ' - Account settings');
   }
 
-  /**
-   * Component OnInit phase
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  ngOnInit(): void {
-    // Load users list
+  ngOnInit() {
+    // Load account data
     this.loadData();
   }
-
+  
   /**
-   * Load users data
+   * Load account data
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  loadData(page?: number): void {
-    this.page = page ? page : this.page;
+  loadData(): void {
     this.loading = true;
-    this.userService.find({
-      page: this.page,
-      size: this.size
-    }).subscribe((res: PartialList<User>) => {
-      this.data = res;
+    this.userService.findById(+this.jwtHelper.id()).subscribe((res: User) => {
+      if (!res) {
+        return this._router.navigate([constants.home_url]);
+      }
+      this.selectedUser = res;
+      this.initSaveForm();
       this.loading = false;
     });
   }
 
   /**
-   * Open the user save modal
+   * Initialize the save form group
    * 
-   * @param modal The user save modal object
-   * 
-   * @author EL OUFIR Hatim
+   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  initSave(modal: any, user?: User): void {
-    // Initialize the form group with the user passed in parameter
-    this.initSaveForm(user);
+  initSaveForm(): void {
     // Get the profiles list
     this.loadingProfiles = true;
     this.profileService.find()
@@ -141,36 +116,6 @@ export class UsersComponent implements OnInit {
         this.profiles = res.data;
         this.loadingProfiles = false;
       });
-    // Open the user save modal
-    this.modalService
-      .open(modal)
-      .result
-      .then((result) => {
-        if (result) {
-          this.loadData();
-        } else {
-          this.initSaveForm();
-        }
-      }, () => {
-        // If the modal is dismissed
-        this.initSaveForm();
-      });
-  }
-
-  /**
-   * Initialize the save form group
-   * 
-   * @param user The user object
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  initSaveForm(user?: User): void {
-    // Initialize the selected user object
-    if (user) {
-      this.selectedUser = Object.assign({}, user);
-    } else {
-      this.selectedUser = new User();
-    }
     if (!this.selectedUser.picture) {
       this.picturePreview = 'assets/images/faces/avatar.png';
     } else {
@@ -179,61 +124,33 @@ export class UsersComponent implements OnInit {
     // Initialize the form group object
     this.form = this._fb.group({
       email: [
-        user ? user.email : '',
+        this.selectedUser ? this.selectedUser.email : '',
         [Validators.required, Validators.maxLength(255)]
       ],
       name: [
-        user ? user.name : '',
+        this.selectedUser ? this.selectedUser.name : '',
         [Validators.required, Validators.maxLength(255)]
       ],
       password: [
         '',
-        user && user.id ? [] : [Validators.required]
+        this.selectedUser && this.selectedUser.id ? [] : [Validators.required]
       ],
       password_confirmation: [
         '',
-        user && user.id ? [] : [Validators.required]
+        this.selectedUser && this.selectedUser.id ? [] : [Validators.required]
       ]
     });
   }
 
   /**
-   * Check if the selected user contains the profile passed in parameter
-   * 
-   * @param profile The profile object to check
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  selectedUserHasProfile(profile: Profile): boolean {
-    return this.selectedUser.profiles.some((r: Profile) => r.id === profile.id);
-  }
-
-  /**
-   * Select a profile
-   * 
-   * @param profile The profile selected
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  selectProfile(profile: Profile): void {
-    if (this.selectedUserHasProfile(profile)) {
-      this.selectedUser.profiles.splice(this.selectedUser.profiles.findIndex((r: Profile) => r.id === profile.id), 1);
-    } else {
-      this.selectedUser.profiles.push(profile);
-    }
-  }
-
-  /**
    * Save the selected user
    * 
-   * @param modal The user save modal object
-   * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
-  save(modal: any): void {
+  save(): void {
     // Check if the form is valid
     if (this.form.valid) {
-      this.savingUser = true;
+      this.saving = true;
       // Construct form data
       const formData = new FormData();
       if (this.selectedUser.picture instanceof File) {
@@ -249,9 +166,7 @@ export class UsersComponent implements OnInit {
       this.userService.save(formData, this.selectedUser.id ? true : false).subscribe((res: User) => {
         // Show success alert
         success('Success!', 'The user is successfully saved.', this._toastr);
-        this.savingUser = false;
-        // Close user save modal
-        this.close(modal, true);
+        this.saving = false;
       }, (err: any) => {
         // Check if the error status is 403 (Form errors)
         if (err.status === 403) {
@@ -263,7 +178,7 @@ export class UsersComponent implements OnInit {
           // Else, show an internal server error alert
           error('Error!', 'An error has occured when saving the user, please contact system administrator.', this._toastr);
         }
-        this.savingUser = false;
+        this.saving = false;
       });
     }
   }
@@ -299,60 +214,6 @@ export class UsersComponent implements OnInit {
         this.picturePreview = reader.result;
       };
     }
-  }
-
-  /**
-   * Open the user delete confirmation modal
-   * 
-   * @param modal The user delete confirmation modal object
-   * @param user The user to delete
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  initDelete(modal: any, user: User): void {
-    this.selectedUser = user;
-    // Open the delete confirmation modal
-    this.modalService
-      .open(modal)
-      .result
-      .then((result) => {
-        if (result) {
-          this.loadData();
-        }
-        this.selectedUser = new User();
-      }, () => {
-        // If the modal is dismissed
-        this.selectedUser = new User();
-      });
-  }
-
-  /**
-   * Delete a user
-   * 
-   * @param modal The user delete confirmation modal
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  delete(modal: any): void {
-    this.deletingUser = true;
-    this.userService.delete({
-      id: this.selectedUser.id
-    }).subscribe(() => {
-      this.close(modal, true);
-      this.deletingUser = false;
-    });
-  }
-
-  /**
-   * Close a given modal modal
-   * 
-   * @param modal The given modal object
-   * @param flag A flag to send in the close event
-   * 
-   * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
-   */
-  close(modal: any, flag?: boolean): void {
-    modal.close(flag ? true : false);
   }
 
 }

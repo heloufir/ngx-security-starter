@@ -1,0 +1,167 @@
+<!-- Breadcrumb -->
+<nav>
+  <ol class="breadcrumb breadcrumb-custom">
+    <li class="breadcrumb-item"><a [routerLink]="['/dashboard']">Home</a></li>
+    <li class="breadcrumb-item active"><span>Account settings</span></li>
+  </ol>
+</nav>
+<!-- ./Breadcrumb -->
+
+<div class="row">
+
+  <div class="col-12 grid-margin stretch-card">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <mat-progress-bar mode="indeterminate" class="loading-account-data" *ngIf="loading"></mat-progress-bar>
+
+        <!-- Page title -->
+        <h4 class="card-title">
+          My account
+        </h4>
+        <!-- ./Page title -->
+
+        <!-- Account settings container -->
+        <div class="row account-settings-container">
+
+          <div class="col-12">
+            <div class="alert alert-primary" role="alert">
+              <div class="row">
+                <div class="pull-left">
+                  <i class="mdi mdi-alert-circle info-icon"></i> 
+                </div>
+                <div class="pull-right">
+                    Please note that you need to close your session and re-open it again (<em>logout from your account and login again</em>) to let your changes take place.
+                    <br>
+                    <b>All changes are not automatically updated into your current session.</b>
+                </div>
+              </div>
+            </div>  
+          </div>
+
+          <div class="col-12" *ngIf="form">
+
+            <form [formGroup]="form" *ngIf="!loading">
+
+              <div class="row">
+                
+                <!-- Picture field -->
+                <div class="col-md-3 col-lg-4 col-sm-12">
+                  <div class="img-uploader">
+                    <div class="img-preview">
+                      <img [src]="picturePreview" />
+                    </div>
+                    <div class="img-input">
+                      <input type="file" id="image" #file (change)="onImageChanged(file.files[0])" />
+                      <label for="image"><i class="mdi mdi-cloud-upload"></i></label>
+                    </div>
+                  </div>
+                </div>
+                <!-- ./Picture field -->
+
+                <div class="col-md-9 col-lg-8 col-sm-12">
+                  <!-- Name field -->
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" formControlName="name" 
+                      [class.has-error]="form.get('name').dirty && form.get('name').invalid" />
+                  </div>
+                  <!-- ./Name field -->
+            
+                  <!-- Name field validations container -->
+                  <div class="row" *ngIf="form.get('name').dirty && form.get('name').invalid">
+                    <div class="col-12">
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('name').dirty && form.controls['name'].hasError('required')">
+                        The name is required
+                      </div>
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('name').dirty && form.get('name').hasError('maxLength')">
+                        The name must be less than 255 characters
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ./Name field validations container -->
+                  
+                  <!-- Email address field -->
+                  <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="text" class="form-control" id="email" formControlName="email"
+                      [class.has-error]="form.get('email').dirty && form.get('email').invalid" />
+                  </div>
+                  <!-- ./Email address field -->
+            
+                  <!-- Email address field validations container -->
+                  <div class="row" *ngIf="form.get('email').dirty && form.get('email').invalid">
+                    <div class="col-12">
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('email').dirty && form.controls['email'].hasError('required')">
+                        The email is required
+                      </div>
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('email').dirty && form.get('email').hasError('maxLength')">
+                        The email must be less than 255 characters
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ./Email address field validations container -->
+            
+                  <!-- Password field -->
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password"
+                      [class.has-error]="form.get('password').dirty && form.get('password').invalid" />
+                  </div>
+                  <!-- ./Password field -->
+            
+                  <!-- Password field validations container -->
+                  <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
+                    <div class="col-12">
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('password').dirty && form.controls['password'].hasError('required')">
+                        The password is required
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ./Password field validations container -->
+            
+                  <!-- Password confirmation field -->
+                  <div class="form-group">
+                    <label for="password_confirmation">Password confirmation</label>
+                    <input type="password" class="form-control" id="password_confirmation" formControlName="password_confirmation"
+                      [class.has-error]="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid" />
+                  </div>
+                  <!-- ./Password confirmation field -->
+            
+                  <!-- Password confirmation field validations container -->
+                  <div class="row" *ngIf="form.get('password_confirmation').dirty && form.get('password_confirmation').invalid">
+                    <div class="col-12">
+                      <div class="alert alert-danger alert-transparent-left" role="alert"
+                        *ngIf="form.get('password_confirmation').dirty && form.controls['password_confirmation'].hasError('required')">
+                        The password confirmation is required
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ./Password confirmation field validations container -->
+                </div>
+
+              </div>
+
+            </form>
+
+            <button type="button" class="btn btn-outline-dark" (click)="save()" [disabled]="form.invalid || saving">Save</button>
+
+          </div>
+
+        </div>
+        <!-- ./Account settings container -->
+
+      </div>
+
+    </div>
+  
+  </div>
+
+</div>
