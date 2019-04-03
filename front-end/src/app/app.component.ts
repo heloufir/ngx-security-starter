@@ -78,6 +78,9 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     });
+    if (!localStorage.getItem(constants.ls_lang)) {
+      localStorage.setItem(constants.ls_lang, 'en');
+    }
     // Add languages
     this._translateService.addLangs(['en', 'fr']);
     // Set the default language
