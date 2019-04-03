@@ -58,12 +58,6 @@ Create the `.env` file in the **back-end** root path, this file needs to have th
 
 > You need to execute `php artisan config:cache` to update the laravel application cache to recognize the new environement variables
 
-> **Laravel/Passport** configuration
-
-```
-  php artisan passport:install
-```
-
 **3. Install front-end dependencies**
 
 ```
@@ -86,6 +80,12 @@ Now you can use the database seeder provided by the starter project to insert sa
 
 ```
   php artisan db:seed
+```
+
+> **Laravel/Passport** configuration
+
+```
+  php artisan passport:install
 ```
 
 **4. Configure Laravel/Passport client into the front-end application**
