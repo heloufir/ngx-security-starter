@@ -17,6 +17,12 @@ import { constants } from '@env/constants';
 import { error, success, warning } from '@app/core/utils/toastr';
 import { ToastrService } from 'ngx-toastr';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -43,6 +49,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
    * @param _router The router object
    * @param _toastr The toastr service
    * @param titleService The title service
+   * @param _translationLoader The translation loader
+   * @param translateService The tarnslate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -52,7 +60,9 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _router: Router,
     private _toastr: ToastrService,
-    titleService: Title
+    titleService: Title,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Update application layout settings
     this.config.setSettings({
@@ -64,6 +74,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.buildForm();
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Forgot password?');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**
@@ -95,12 +107,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.buildForm();
         this.loading = false;
-        success('Success!', 'An email was sent to you, containing the recover password steps.', this._toastr);
+        success('Success!', 'An email was sent to you, containing the recover password steps.', this._toastr, this.translateService);
       }, (err: any) => {
         if (err.status === 403) {
-          warning('Error!', 'The email address entered does not match with any account.', this._toastr);
+          warning('Error!', 'The email address entered does not match with any account.', this._toastr, this.translateService);
         } else {
-          error('Error!', 'An internal error has occured, please contact system administrator.', this._toastr);
+          error('Error!', 'An internal error has occurred, please contact system administrator.', this._toastr, this.translateService);
         }
         this.loading = false;
       });

@@ -20,6 +20,12 @@ import { ToastrService } from 'ngx-toastr';
 // Application constants
 import { constants } from '@env/constants';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
@@ -67,6 +73,8 @@ export class RolesComponent implements OnInit {
    * @param _fb The form builder object
    * @param _toastr The toastr service
    * @param titleService The title service
+   * @param _translationLoader The translation loader
+   * @param translateService The translate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -75,10 +83,14 @@ export class RolesComponent implements OnInit {
     private modalService: NgbModal,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    titleService: Title
+    titleService: Title,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Security - Roles management');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   /**
@@ -177,7 +189,7 @@ export class RolesComponent implements OnInit {
         designation: this.form.get('designation').value
       }, this.selectedRole.id ? true : false).subscribe((res: Role) => {
         // Show success alert
-        success('Success!', 'The role is successfully saved.', this._toastr);
+        success('ROLES.TOASTS.TITLE.SUCCESS', 'ROLES.TOASTS.DESCRIPTION.SAVED', this._toastr, this.translateService);
         this.savingRole = false;
         // Close role save modal
         this.close(modal, true);
@@ -186,11 +198,11 @@ export class RolesComponent implements OnInit {
         if (err.status === 403) {
           // Show an error for each form validations errors list
           err.error.forEach((e: string) => {
-            warning('Warning!', e, this._toastr);
+            warning('ROLES.TOASTS.TITLE.WARNING', e, this._toastr, this.translateService);
           });
         } else {
           // Else, show an internal server error alert
-          error('Error!', 'An error has occured when saving the role, please contact system administrator.', this._toastr);
+          error('ROLES.TOASTS.TITLE.ERROR', 'ROLES.TOASTS.DESCRIPTION.ERROR', this._toastr, this.translateService);
         }
         this.savingRole = false;
       });

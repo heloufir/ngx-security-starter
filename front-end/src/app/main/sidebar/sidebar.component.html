@@ -19,28 +19,28 @@
     <li class="nav-item">
       <a class="nav-link" [routerLink]="['/dashboard']" routerLinkActive="active">
         <i class="menu-icon mdi mdi-television"></i>
-        <span class="menu-title">Dashboard</span>
+        <span class="menu-title">{{ 'SIDE_BAR.MENU.DASHBOARD' | translate }}</span>
       </a>
     </li>
     <li class="nav-item nav-item-header">
-      <span class="menu-title">Security</span>
+      <span class="menu-title">{{ 'SIDE_BAR.MENU.SECURITY' | translate }}</span>
     </li>
     <li class="nav-item">
       <a *ngIf="hasRole('ROLE_USERS')" class="nav-link" [routerLink]="['/security/users']" routerLinkActive="active">
         <i class="menu-icon mdi mdi-account"></i>
-        <span class="menu-title">Manage users</span>
+        <span class="menu-title">{{ 'SIDE_BAR.MENU.USERS' | translate }}</span>
       </a>
     </li>
     <li class="nav-item">
       <a *ngIf="hasRole('ROLE_PROFILES')" class="nav-link" [routerLink]="['/security/profiles']" routerLinkActive="active">
         <i class="menu-icon mdi mdi-security"></i>
-        <span class="menu-title">Manage profiles</span>
+        <span class="menu-title">{{ 'SIDE_BAR.MENU.PROFILES' | translate }}</span>
       </a>
     </li>
     <li class="nav-item">
       <a *ngIf="hasRole('ROLE_ROLES')" class="nav-link" [routerLink]="['/security/roles']" routerLinkActive="active">
         <i class="menu-icon mdi mdi-security-network"></i>
-        <span class="menu-title">Manage roles</span>
+        <span class="menu-title">{{ 'SIDE_BAR.MENU.ROLES' | translate }}</span>
       </a>
     </li>
   </ul>

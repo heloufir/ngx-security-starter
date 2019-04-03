@@ -11,7 +11,7 @@
 
         <div class="col-sm-6 offset-sm-3 text-center">
 
-          <h1 class="display-3">Login to your account</h1>
+          <h1 class="display-3">{{ 'LOGIN.TITLE' | translate }}</h1>
 
           <div class="info-form">
 
@@ -25,7 +25,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-user"></i></div>
                 </div>
-                <input type="email" formControlName="username" class="form-control" placeholder="Email address">
+                <input type="email" formControlName="username" class="form-control" [placeholder]="'LOGIN.FIELDS.EMAIL' | translate">
               </div>
               <!-- ./Username field -->
               
@@ -33,10 +33,10 @@
               <div class="row" *ngIf="form.get('username').dirty && form.get('username').invalid">
                 <div class="col-12">
                   <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.controls['username'].hasError('required')">
-                    The email address is required
+                    {{ 'LOGIN.ERRORS.EMAIL.REQUIRED' | translate }}
                   </div>
                   <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.get('username').hasError('email')">
-                    Please enter a valid email address
+                    {{ 'LOGIN.ERRORS.EMAIL.VALID' | translate }}
                   </div>
                 </div>
               </div>
@@ -47,7 +47,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fa fa-unlock-alt"></i></div>
                 </div>
-                <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                <input type="password" formControlName="password" class="form-control" [placeholder]="'LOGIN.FIELDS.PASSWORD' | translate">
               </div>
               <!-- ./Password field -->
               
@@ -55,7 +55,7 @@
               <div class="row" *ngIf="form.get('password').dirty && form.get('password').invalid">
                 <div class="col-12">
                   <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('password').dirty && form.get('password').hasError('required')">
-                    The password is required
+                    {{ 'LOGIN.ERRORS.PASSWORD.REQUIRED' | translate }}
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
               <!-- Forgot password link -->
               <div class="row">
                 <div class="col-12">
-                  <a [routerLink]="['/auth/forgot-password']" class="btn btn-secondary-outline btn-sm text-left float-left" role="button">Forgot your password?</a>
+                  <a [routerLink]="['/auth/forgot-password']" class="btn btn-secondary-outline btn-sm text-left float-left" role="button">{{ 'LOGIN.LINKS.FORGOT_PASSWORD' | translate }}</a>
                 </div>
               </div>
               <!-- ./Forgot password link -->

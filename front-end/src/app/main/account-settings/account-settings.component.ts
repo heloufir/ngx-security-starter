@@ -22,6 +22,12 @@ import { constants } from '@env/constants';
 import { environment } from '@env/environment';
 import { JwtHelperService } from '@services/security/jwt-helper.service';
 
+// Translation imports
+import { TranslationLoaderService } from '@app/core/services/translation-loader.service';
+import { locale as en } from './i18n/en';
+import { locale as fr } from './i18n/fr';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-account-settings',
   templateUrl: './account-settings.component.html',
@@ -65,6 +71,8 @@ export class AccountSettingsComponent implements OnInit {
    * @param _toastr The toastr service
    * @param titleService The title service
    * @param jwtHelper The JWT helper service
+   * @param _translationLoader The translation loader
+   * @param translateService The translate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
@@ -75,10 +83,14 @@ export class AccountSettingsComponent implements OnInit {
     private _toastr: ToastrService,
     titleService: Title,
     private jwtHelper: JwtHelperService,
-    private _router: Router
+    private _router: Router,
+    private _translationLoader: TranslationLoaderService,
+    private translateService: TranslateService
   ) {
     // Set the page title
     titleService.setTitle(constants.app_name + ' - Account settings');
+    // Load translation
+    this._translationLoader.loadTranslations(en, fr);
   }
 
   ngOnInit() {
@@ -165,18 +177,18 @@ export class AccountSettingsComponent implements OnInit {
       // Send save / update request to the service
       this.userService.save(formData, this.selectedUser.id ? true : false).subscribe((res: User) => {
         // Show success alert
-        success('Success!', 'The user is successfully saved.', this._toastr);
+        success('ACCOUNT_SETTINGS.TOASTS.TITLE.SUCCESS', 'ACCOUNT_SETTINGS.TOASTS.DESCRIPTION.SAVED', this._toastr, this.translateService);
         this.saving = false;
       }, (err: any) => {
         // Check if the error status is 403 (Form errors)
         if (err.status === 403) {
           // Show an error for each form validations errors list
           err.error.forEach((e: string) => {
-            warning('Warning!', e, this._toastr);
+            warning('ACCOUNT_SETTINGS.TOASTS.TITLE.WARNING', e, this._toastr, this.translateService);
           });
         } else {
           // Else, show an internal server error alert
-          error('Error!', 'An error has occured when saving the user, please contact system administrator.', this._toastr);
+          error('ACCOUNT_SETTINGS.TOASTS.TITLE.ERROR', 'ACCOUNT_SETTINGS.TOASTS.DESCRIPTION.ERROR', this._toastr, this.translateService);
         }
         this.saving = false;
       });

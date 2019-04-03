@@ -1,26 +1,47 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
     <a class="navbar-brand brand-logo" href="index.html">
-      <img src="assets/images/logo.svg" alt="logo" />
+      <img src="assets/images/logos/logo.png" alt="logo" />
     </a>
     <a class="navbar-brand brand-logo-mini" href="index.html">
-      <img src="assets/images/logo-mini.svg" alt="logo" />
+      <img src="assets/images/logos/logo.png" alt="logo" />
     </a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center">
     <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" ngbDropdownToggle>
+          <img src="assets/images/flags/lang.png" alt="Lang" class="lang-toggler" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" ngbDropdownMenu aria-labelledby="notificationDropdown">
+          <ng-container
+            *ngFor="let lang of languages; let i = index">
+            <a class="dropdown-item preview-item" (click)="setLanguage(lang)" [class.selected-lang]="lang.id === selectedLanguage.id">
+              <div class="preview-thumbnail">
+                <div class="preview-icon">
+                  <img [src]="'assets/images/flags/' + lang.flag + '.png'" [alt]="lang.title" />
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <h6 class="preview-subject font-weight-medium">{{ lang.title }}</h6>
+              </div>
+            </a>
+            <div class="dropdown-divider" *ngIf="(i + 1) < languages.length"></div>
+          </ng-container>
+        </div>
+      </li>
       <li class="nav-item dropdown d-none d-xl-inline-block" ngbDropdown>
         <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle>
-          <span class="profile-text">Hello, {{ jwtHelper.name() }} !</span>
+          <span class="profile-text">{{ 'NAVBAR.HELLO' | translate }}, {{ jwtHelper.name() }} !</span>
           <img class="img-xs rounded-circle" src="assets/images/faces/avatar.png" [alt]="jwtHelper.name()" *ngIf="!jwtHelper.picture()">
           <img class="img-xs rounded-circle" [src]="jwtHelper.picture() + '?v=' + pictureVersion" [alt]="jwtHelper.name()" *ngIf="jwtHelper.picture()">
         </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">
           <a class="dropdown-item mt-2" [routerLink]="['/account-settings']">
-            <i class="fa fa-cogs"></i> Account settings
+            <i class="fa fa-cogs"></i> {{ 'NAVBAR.ACCOUNT_SETTINGS' | translate }}
           </a>
           <a class="dropdown-item" (click)="logout()">
-            <i class="fa fa-sign-out"></i> Sign Out
+            <i class="fa fa-sign-out"></i> {{ 'NAVBAR.SIGN_OUT' | translate }}
           </a>
         </div>
       </li>

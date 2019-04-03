@@ -65,7 +65,7 @@
         right: 0;
         left: auto;
         border: 1px solid rgba(182, 182, 182, 0.1);
-        padding: 0 0 20px;
+        padding: 0;
         min-width: 100%;
         @include border-radius(6px);
         @extend .dropdownAnimation;

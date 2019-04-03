@@ -8,6 +8,12 @@ import { ConfigService, ConfigObject } from './core/services/config.service';
 // Rxjs components
 import { Subscription } from 'rxjs/Subscription';
 
+// Translate service
+import { TranslateService } from '@ngx-translate/core';
+
+// Application constants
+import { constants } from '@env/constants';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -40,12 +46,14 @@ export class AppComponent implements OnInit, OnDestroy {
    * 
    * @param config The configuration service
    * @param router The router object
+   * @param _translateService The translate service
    * 
    * @author EL OUFIR Hatim <eloufirhatim@gmail.com>
    */
   constructor(
     public config: ConfigService,
-    private router: Router
+    private router: Router,
+    private _translateService: TranslateService
   ) {
     // Subscribe to all the settings change events
     this.onSettingsChanged = this.config.onSettingsChanged
@@ -70,6 +78,15 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       }
     });
+    if (!localStorage.getItem(constants.ls_lang)) {
+      localStorage.setItem(constants.ls_lang, 'en');
+    }
+    // Add languages
+    this._translateService.addLangs(['en', 'fr']);
+    // Set the default language
+    this._translateService.setDefaultLang('en');
+    // Use a language
+    this._translateService.use(localStorage.getItem(constants.ls_lang));
   }
 
   /**
