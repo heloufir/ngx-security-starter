@@ -109,7 +109,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         this.loading = false;
         success('Success!', 'An email was sent to you, containing the recover password steps.', this._toastr, this.translateService);
       }, (err: any) => {
-        if (err.status === 403) {
+        if (err.status === 422) {
           warning('Error!', 'The email address entered does not match with any account.', this._toastr, this.translateService);
         } else {
           error('Error!', 'An internal error has occurred, please contact system administrator.', this._toastr, this.translateService);
