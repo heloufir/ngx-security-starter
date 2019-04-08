@@ -59,7 +59,7 @@ class UserController extends Controller
                 'confirmed'
             ],
             'profiles' => [
-                'array'
+                'string'
             ]
         ];
         $validator = Validator::make($request->all(), $rules);
@@ -75,7 +75,8 @@ class UserController extends Controller
         }
         $user->save();
         if ($request->has('profiles')) {
-            foreach ($request->get('profiles') as $profile) {
+        	$profiles = explode(',', $request->get('profiles'));
+            foreach ($profiles as $profile) {
                 DB::table(config('security-starter.tables.associations.user_profiles'))
                     ->insert([
                         'refUser' => $user->id,
