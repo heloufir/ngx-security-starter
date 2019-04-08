@@ -48,6 +48,7 @@ class UserController extends Controller
             'email' => [
                 'required',
                 'max:255',
+                'email',
                 'unique:users,email'
             ],
             'name' => [
@@ -121,6 +122,7 @@ class UserController extends Controller
             'email' => [
                 'required',
                 'max:255',
+                'email',
                 new UserExists($id),
                 'unique:users,email,' . $id
             ],
