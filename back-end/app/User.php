@@ -3,6 +3,7 @@
 namespace App;
 
 use Heloufir\SecurityStarter\Core\UserProfiles;
+use Heloufir\SimplePassport\Helpers\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +11,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, UserProfiles;
+    use Notifiable, HasApiTokens, UserProfiles, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.

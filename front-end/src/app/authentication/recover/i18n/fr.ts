@@ -6,10 +6,15 @@ export const locale: Locale = {
         'RECOVER': {
             'TITLE': 'Récupère ton mot de passe',
             'FIELDS': {
+                'EMAIL': 'Adresse email',
                 'PASSWORD': 'Nouveau mot de passe',
                 'PASSWORD_CONFIRMATION': 'Confirmation du mot de passe'
             },
             'ERRORS': {
+                'EMAIL': {
+                    'REQUIRED': 'L\'adresse email est obligatiore',
+                    'VALID': 'Veuillez entrer une adresse email valide'
+                },
                 'PASSWORD': {
                     'REQUIRED': 'Le mot de passe est obligatoire'
                 },

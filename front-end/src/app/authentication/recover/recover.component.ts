@@ -103,6 +103,7 @@ export class RecoverComponent implements OnInit, OnDestroy {
    */
   private buildForm(): void {
     this.form = this._fb.group({
+      username: [ '', [ Validators.required, Validators.email ] ],
       password: [ '', Validators.required ],
       password_confirmation: [ '', Validators.required ]
     });
@@ -116,6 +117,7 @@ export class RecoverComponent implements OnInit, OnDestroy {
   recover(): void {
     this.loading = true;
     this.authenticationService.recoverPassword({
+      email: this.form.get('username').value,
       password: this.form.get('password').value,
       password_confirmation: this.form.get('password_confirmation').value
     }, this.token)
@@ -125,9 +127,12 @@ export class RecoverComponent implements OnInit, OnDestroy {
         this._router.navigate([constants.auth_url]);
         success('Success!', 'Your password is successfully recovered. Please login to your account using your new password.', this._toastr, this.translateService);
       }, (err: any) => {
-        if (err.status === 403) {
-          JSON.parse(err._body).errors.forEach((e: string) => {
-            warning('Error!', e, this._toastr, this.translateService);
+        if (err.status === 422) {
+          const errors = JSON.parse(err._body).errors;
+          Object.keys(errors).forEach(key => {
+            errors[key].forEach(e => {
+              warning('Error!', e, this._toastr, this.translateService);
+            });
           });
         } else {
           error('Error!', 'An internal error has occurred, please contact system administrator.', this._toastr, this.translateService);

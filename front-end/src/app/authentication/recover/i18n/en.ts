@@ -6,10 +6,15 @@ export const locale: Locale = {
         'RECOVER': {
             'TITLE': 'Recover your password',
             'FIELDS': {
+                'EMAIL': 'Email address',
                 'PASSWORD': 'New password',
                 'PASSWORD_CONFIRMATION': 'Password confirmation'
             },
             'ERRORS': {
+                'EMAIL': {
+                    'REQUIRED': 'The email address is required',
+                    'VALID': 'Please enter a valid email address'
+                },
                 'PASSWORD': {
                     'REQUIRED': 'The password is required'
                 },

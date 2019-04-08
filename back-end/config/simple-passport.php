@@ -41,5 +41,27 @@ return [
     |    .env file with the following name: "SP_MAIL_FROM_NAME"
     |
     */
-    'mail_from_name' => env('SP_MAIL_FROM_NAME', 'Application')
+    'mail_from_name' => env('SP_MAIL_FROM_NAME', 'Application'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | model
+    |--------------------------------------------------------------------------
+    |
+    | The model that can use simple-passport features
+    |
+    */
+
+    'model' => \App\User::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | after_seconds
+    |--------------------------------------------------------------------------
+    |
+    | How many seconds before dispatch the jobs to send mails
+    |
+    */
+
+    'after_seconds' => 10,
 ];
