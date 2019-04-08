@@ -22,7 +22,7 @@
         <span class="menu-title">{{ 'SIDE_BAR.MENU.DASHBOARD' | translate }}</span>
       </a>
     </li>
-    <li class="nav-item nav-item-header">
+    <li class="nav-item nav-item-header" *ngIf="hasRole('ROLE_USERS') || hasRole('ROLE_PROFILES') || hasRole('ROLE_ROLES')">
       <span class="menu-title">{{ 'SIDE_BAR.MENU.SECURITY' | translate }}</span>
     </li>
     <li class="nav-item">
