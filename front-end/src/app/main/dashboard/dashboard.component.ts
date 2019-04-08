@@ -78,11 +78,17 @@ export class DashboardComponent implements OnInit {
    */
   ngOnInit(): void {
     // Load profiles count
-    this.loadProfilesStatistics();
+    if (this.hasRole('ROLE_PROFILES')) {
+      this.loadProfilesStatistics();
+    }
     // Load roles count
-    this.loadRolesStatistics();
+    if (this.hasRole('ROLE_ROLES')) {
+      this.loadRolesStatistics();
+    }
     // Load users count
-    this.loadUsersStatistics();
+    if (this.hasRole('ROLE_USERS')) {
+      this.loadUsersStatistics();
+    }
   }
 
   /**
