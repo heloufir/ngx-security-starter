@@ -20,6 +20,28 @@
             <!-- Recover password form -->
             <form [formGroup]="form" class="justify-content-center" (submit)="recover()">
 
+              <!-- Username field -->
+              <div class="input-group mb-2" [class.has-error]="form.get('username').dirty && form.get('username').invalid">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="fa fa-user"></i></div>
+                </div>
+                <input type="email" formControlName="username" class="form-control" [placeholder]="'RECOVER.FIELDS.EMAIL' | translate">
+              </div>
+              <!-- ./Username field -->
+              
+              <!-- Username field validations container -->
+              <div class="row" *ngIf="form.get('username').dirty && form.get('username').invalid">
+                <div class="col-12">
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.controls['username'].hasError('required')">
+                    {{ 'RECOVER.ERRORS.EMAIL.REQUIRED' | translate }}
+                  </div>
+                  <div class="alert alert-danger alert-transparent-left" role="alert" *ngIf="form.get('username').dirty && form.get('username').hasError('email')">
+                      {{ 'RECOVER.ERRORS.EMAIL.VALID' | translate }}
+                  </div>
+                </div>
+              </div>
+              <!-- ./Username field validations container -->
+
               <!-- Password field -->
               <div class="input-group mb-2" [class.has-error]="form.get('password').dirty && form.get('password').invalid">
                 <div class="input-group-prepend">

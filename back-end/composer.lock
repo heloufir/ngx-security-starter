@@ -783,12 +783,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/heloufir/security-starter.git",
-                "reference": "2f54330188c48286523b042f1495ad94e26e4609"
+                "reference": "4ad82c85b3aa48e24b6373867761a72834865e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/2f54330188c48286523b042f1495ad94e26e4609",
-                "reference": "2f54330188c48286523b042f1495ad94e26e4609",
+                "url": "https://api.github.com/repos/heloufir/security-starter/zipball/4ad82c85b3aa48e24b6373867761a72834865e8a",
+                "reference": "4ad82c85b3aa48e24b6373867761a72834865e8a",
                 "shasum": ""
             },
             "require": {
@@ -822,16 +822,16 @@
         },
         {
             "name": "heloufir/simple-passport",
-            "version": "1.2",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/heloufir/simple-passport.git",
-                "reference": "b80f68d3b1437372b3231289d9e8530205702407"
+                "reference": "86ae5e0c4b81145eb725e91b459969972f7d42f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heloufir/simple-passport/zipball/b80f68d3b1437372b3231289d9e8530205702407",
-                "reference": "b80f68d3b1437372b3231289d9e8530205702407",
+                "url": "https://api.github.com/repos/heloufir/simple-passport/zipball/86ae5e0c4b81145eb725e91b459969972f7d42f0",
+                "reference": "86ae5e0c4b81145eb725e91b459969972f7d42f0",
                 "shasum": ""
             },
             "require": {
@@ -865,7 +865,7 @@
                 }
             ],
             "description": "Simple passport, is a complete implementation of laravel/passport package, containing authentication, forgot password, recovery password, ... and all what you need to start your application that needs a complete authentication system",
-            "time": "2019-04-04T07:30:56+00:00"
+            "time": "2019-04-08T07:57:27+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -957,16 +957,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.9",
+            "version": "v5.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2455d21938e9072e5a8ecef64ae162a1825d336b"
+                "reference": "505325b4577968750e622d7a5a271cf8785a7a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2455d21938e9072e5a8ecef64ae162a1825d336b",
-                "reference": "2455d21938e9072e5a8ecef64ae162a1825d336b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/505325b4577968750e622d7a5a271cf8785a7a1a",
+                "reference": "505325b4577968750e622d7a5a271cf8785a7a1a",
                 "shasum": ""
             },
             "require": {
@@ -1100,7 +1100,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-04-02T14:11:17+00:00"
+            "time": "2019-04-04T13:39:49+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1584,16 +1584,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.16.2",
+            "version": "2.16.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "720a9c36927396efeeb48a972e9d129d44b6dc28"
+                "reference": "373d9f0d58651af366435148c39beb702c2b7ef4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/720a9c36927396efeeb48a972e9d129d44b6dc28",
-                "reference": "720a9c36927396efeeb48a972e9d129d44b6dc28",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/373d9f0d58651af366435148c39beb702c2b7ef4",
+                "reference": "373d9f0d58651af366435148c39beb702c2b7ef4",
                 "shasum": ""
             },
             "require": {
@@ -1640,7 +1640,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-03-29T12:23:12+00:00"
+            "time": "2019-04-06T17:09:23+00:00"
         },
         {
             "name": "nikic/php-parser",
