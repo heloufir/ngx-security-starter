@@ -1,3 +1,4 @@
+<h3>Due to a time constraint, unfortunately this repository is no longer maintained.</h3>
 
 # ngx-security-starter
 A full implementation of the heloufir/security-starter with an Angular 7+ front-end implementation
